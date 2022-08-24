@@ -1,0 +1,3 @@
+[submodule "game/lib/godot-gdhexgrid"]
+	path = game/lib/godot-gdhexgrid
+	url = git@github.com:dmistomin/godot-gdhexgrid.git
