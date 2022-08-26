@@ -1,0 +1,17 @@
+class_name Enums
+extends Reference
+
+enum Actor { ENVIRONMENT, PLAYER, ENEMY }
+
+enum ShipType {
+	CORVETTE,
+	FRIGATE,
+	DESTROYER,
+	CRUISER,
+	BATTLE_CRUISER,
+	BATTLESHIP,
+	DREADNOUGHT,
+	SUPER_DREADNOUGHT,
+	FLAGSHIP,
+	CARRIER
+}

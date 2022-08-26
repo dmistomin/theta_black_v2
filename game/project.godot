@@ -9,10 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Card",
+"language": "GDScript",
+"path": "res://src/cards/card.gd"
+}, {
+"base": "Reference",
+"class": "CardList",
+"language": "GDScript",
+"path": "res://src/cards/card_list.gd"
+}, {
 "base": "Node",
 "class": "Combat",
 "language": "GDScript",
 "path": "res://src/combat/combat.gd"
+}, {
+"base": "Reference",
+"class": "Enums",
+"language": "GDScript",
+"path": "res://src/enums.gd"
 }, {
 "base": "Node",
 "class": "Game",
@@ -23,11 +38,62 @@ _global_script_classes=[ {
 "class": "Map",
 "language": "GDScript",
 "path": "res://src/combat/map.gd"
+}, {
+"base": "Camera",
+"class": "MapCamera",
+"language": "GDScript",
+"path": "res://src/combat/map_camera.gd"
+}, {
+"base": "Resource",
+"class": "MapData",
+"language": "GDScript",
+"path": "res://src/combat/map_data.gd"
+}, {
+"base": "Spatial",
+"class": "MapHex",
+"language": "GDScript",
+"path": "res://src/combat/map_hex.gd"
+}, {
+"base": "Reference",
+"class": "Sector",
+"language": "GDScript",
+"path": "res://src/combat/sector.gd"
+}, {
+"base": "Resource",
+"class": "SectorData",
+"language": "GDScript",
+"path": "res://src/combat/sector_data.gd"
+}, {
+"base": "Reference",
+"class": "Ship",
+"language": "GDScript",
+"path": "res://src/combat/ship.gd"
+}, {
+"base": "Resource",
+"class": "ShipData",
+"language": "GDScript",
+"path": "res://src/combat/ship_data.gd"
+}, {
+"base": "Spatial",
+"class": "ShipToken",
+"language": "GDScript",
+"path": "res://src/combat/ship_token.gd"
 } ]
 _global_script_class_icons={
+"Card": "",
+"CardList": "",
 "Combat": "",
+"Enums": "",
 "Game": "",
-"Map": ""
+"Map": "",
+"MapCamera": "",
+"MapData": "",
+"MapHex": "",
+"Sector": "",
+"SectorData": "",
+"Ship": "",
+"ShipData": "",
+"ShipToken": ""
 }
 
 [application]
@@ -47,6 +113,43 @@ window/stretch/aspect="keep"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[input]
+
+move_camera_forward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":87,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_camera_backward={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":83,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_camera_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":65,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_camera_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":68,"unicode":0,"echo":false,"script":null)
+ ]
+}
+move_camera_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+move_camera_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+camera_speed={
+"deadzone": 0.5,
+"events": [  ]
+}
 
 [physics]
 
