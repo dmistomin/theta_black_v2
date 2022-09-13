@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-ship_class = "Icarus"
-mass = 1
-crew_hp = 1
+ship_class = "Theseus"
+mass = 2
+crew_hp = 2
 shields = 0
-sensors = 1
-weapon_aim = 4
-weapon_damage = 1
-evasion = 14
+sensors = 2
+weapon_aim = 2
+weapon_damage = 2
+evasion = 11
 super_type = "escort"
-sub_type = "corvette"
+sub_type = "destroyer"

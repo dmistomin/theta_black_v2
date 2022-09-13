@@ -4,9 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Kestrel"
-mass = 0
+ship_class = "Medusa"
+mass = 2
+crew_hp = 1
 shields = 0
-attack = 1
-defense = 1
-type = "corvette"
+sensors = 2
+weapon_aim = 3
+weapon_damage = 1
+evasion = 12
+super_type = "escort"
+sub_type = "frigate"

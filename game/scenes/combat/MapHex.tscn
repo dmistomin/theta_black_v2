@@ -18,19 +18,11 @@ scan_icon = ""
 control_icon = ""
 spawn_icon = ""
 
-[node name="HexBorder" type="Sprite3D" parent="."]
+[node name="Ships" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0, 0 )
-texture = ExtResource( 1 )
-
-[node name="HexFill" type="Sprite3D" parent="."]
-transform = Transform( 0.5, 0, 0, 0, 0.5, -8.35187e-23, 0, 4.17594e-23, 1, 0, 0, 0.06 )
-visible = false
-texture = ExtResource( 2 )
-
-[node name="CoordLabel" type="Label3D" parent="."]
-text = "(x, y)"
 
 [node name="Markers" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0, 0 )
 
 [node name="PlayerScanMark" type="Spatial" parent="Markers"]
 transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, -0.978202, -0.482962, -2.11109e-08 )
@@ -122,4 +114,15 @@ no_depth_test = true
 text = ""
 font = SubResource( 1 )
 
-[node name="Ships" type="Spatial" parent="."]
+[node name="HexBorder" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0, 0 )
+double_sided = false
+texture = ExtResource( 1 )
+
+[node name="HexFill" type="Sprite3D" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, -8.35187e-23, 0, 4.17594e-23, 1, 0, 0, 0.06 )
+visible = false
+texture = ExtResource( 2 )
+
+[node name="CoordLabel" type="Label3D" parent="."]
+text = "(x, y)"

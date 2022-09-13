@@ -28,6 +28,7 @@ zoom_speed = 20.0
 
 [node name="Map" type="Spatial" parent="Combat"]
 script = ExtResource( 3 )
+hex_scale = Vector2( 2.5, 2.95 )
 
 [node name="HUD" type="Control" parent="Combat"]
 anchor_right = 1.0

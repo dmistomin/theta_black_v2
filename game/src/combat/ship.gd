@@ -1,13 +1,17 @@
 class_name Ship
 extends Reference
 
-var name: String
+var ship_class: String
+var ship_name: String
 
 var mass: int
 var shields: int
-var attack: int
-var defense: int
-var type
+var sensors: int
+var weapon_aim: int
+var weapon_damage: int
+var evasion: int
+var super_type
+var sub_type
 var owner
 
 var data: ShipData
@@ -17,27 +21,42 @@ func _init(p_owner, p_data):
 	owner = p_owner
 	data = p_data
 
+	ship_class = data.ship_class
 	mass = data.mass
 	shields = data.shields
-	attack = data.attack
-	defense = data.defense
+	sensors = data.sensors
+	weapon_aim = data.weapon_aim
+	weapon_damage = data.weapon_damage
+	evasion = data.evasion
 
-	match data.type:
-		"corvette":
-			type = Enums.ShipType.CORVETTE
-		"frigate":
-			type = Enums.ShipType.FRIGATE
-		"destroyer":
-			type = Enums.ShipType.DESTROYER
+	match data.super_type:
+		"scout":
+			super_type = Enums.ShipSuperType.SCOUT
 		"cruiser":
-			type = Enums.ShipType.CRUISER
+			super_type = Enums.ShipSuperType.CRUISER
+		"capital_ship":
+			super_type = Enums.ShipSuperType.CAPITAL_SHIP
+
+	match data.sub_type:
+		"corvette":
+			sub_type = Enums.ShipSubType.CORVETTE
+		"frigate":
+			sub_type = Enums.ShipSubType.FRIGATE
+		"destroyer":
+			sub_type = Enums.ShipSubType.DESTROYER
+		"light_cruiser":
+			sub_type = Enums.ShipSubType.LIGHT_CRUISER
+		"heavy_cruiser":
+			sub_type = Enums.ShipSubType.HEAVY_CRUISER
+		"battle_cruiser":
+			sub_type = Enums.ShipSubType.BATTLE_CRUISER
 		"battleship":
-			type = Enums.ShipType.BATTLESHIP
+			sub_type = Enums.ShipSubType.BATTLESHIP
 		"dreadnought":
-			type = Enums.ShipType.DREADNOUGHT
+			sub_type = Enums.ShipSubType.DREADNOUGHT
 		"carrier":
-			type = Enums.ShipType.CARRIER
-		"flagship":
-			type = Enums.ShipType.FLAGSHIP
+			sub_type = Enums.ShipSubType.CARRIER
 		_:
-			printerr("No match on ship type!")
+			printerr(
+				"No match on ship type '%s' for ship class '%s'!" % [data.sub_type, data.ship_class]
+			)

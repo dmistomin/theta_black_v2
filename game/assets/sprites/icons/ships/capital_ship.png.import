@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/capital_ship.png-ab1c35517e4f7a9a2a5c9d29a8de5fa2.s3tc.stex"
-path.etc2="res://.import/capital_ship.png-ab1c35517e4f7a9a2a5c9d29a8de5fa2.etc2.stex"
+path.s3tc="res://.import/capital_ship.png-9c4a0ff7d36ff6b8b5e1ab0e6bd2a07a.s3tc.stex"
+path.etc2="res://.import/capital_ship.png-9c4a0ff7d36ff6b8b5e1ab0e6bd2a07a.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprites/icons/capital_ship.png"
-dest_files=[ "res://.import/capital_ship.png-ab1c35517e4f7a9a2a5c9d29a8de5fa2.s3tc.stex", "res://.import/capital_ship.png-ab1c35517e4f7a9a2a5c9d29a8de5fa2.etc2.stex" ]
+source_file="res://assets/sprites/icons/ships/capital_ship.png"
+dest_files=[ "res://.import/capital_ship.png-9c4a0ff7d36ff6b8b5e1ab0e6bd2a07a.s3tc.stex", "res://.import/capital_ship.png-9c4a0ff7d36ff6b8b5e1ab0e6bd2a07a.etc2.stex" ]
 
 [params]
 

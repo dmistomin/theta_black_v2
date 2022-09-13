@@ -1,6 +1,8 @@
 class_name Map
 extends Spatial
 
+export(Vector2) var hex_scale
+
 var HexGrid = preload("res://lib/godot-gdhexgrid/HexGrid.gd")
 var HexCell = preload("res://lib/godot-gdhexgrid/HexCell.gd")
 
@@ -10,7 +12,7 @@ var hex_grid = HexGrid.new()
 var sectors = {}
 
 
-func _load_map(map_name: String) -> void:
+func load_map(map_name: String) -> void:
 	var map_data = load("res://data/maps/%s.tres" % map_name)
 
 	for coords in map_data.sectors:
@@ -38,14 +40,12 @@ func _load_map(map_name: String) -> void:
 		sectors[coords].update_map()
 
 
-func _spawn_player_flagship_at(map_hex: MapHex):
-	var flagship_data = preload("res://data/ships/s1.tres")
-	var flagship = Ship.new(Enums.Actor.PLAYER, flagship_data)
+func spawn_new_token_at(ship_class: String, ship_owner, map_hex: MapHex):
+	var ship_data = load("res://data/ships/%s.tres" % ship_class)
+	var ship = Ship.new(ship_owner, ship_data)
 
-	map_hex.spawn_ship(flagship)
+	map_hex.spawn_ship(ship)
 
 
 func _ready() -> void:
-	hex_grid.hex_scale = Vector2(2.5, 2.95)
-	_load_map("m1")
-	_spawn_player_flagship_at(sectors[Vector2(0, 0)].map_hex)
+	hex_grid.hex_scale = hex_scale

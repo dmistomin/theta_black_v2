@@ -15,13 +15,13 @@ func _arrange_tokens_in_a_circle():
 	var combined_tokens = player_tokens + enemy_tokens
 
 	var count = combined_tokens.size()
-	var radius = Vector3(0.66, 0, 0)
+	var radius = Vector3(0.7, 0, 0)
 	var center = Vector3(0, 0, 0)
 
 	var step = 2 * PI / count
 
 	for i in range(count):
-		var token_position = (center + radius).rotated(Vector3.UP, step * i)
+		var token_position = (center + radius).rotated(Vector3.FORWARD, step * i)
 		combined_tokens[i].translation = token_position
 
 

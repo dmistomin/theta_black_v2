@@ -1,10 +1,19 @@
 class_name Card
 extends Reference
 
+var card_name
+
 var initiative: int
+var super_type
+var sub_type
+var owner
 
 var data
 var effect
+
+
+func _init(p_owner, p_data):
+	
 
 
 func get_data_id():

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/triangle_ship.png-2643dae883873189c952dffa4e4fee1f.s3tc.stex"
-path.etc2="res://.import/triangle_ship.png-2643dae883873189c952dffa4e4fee1f.etc2.stex"
+path.s3tc="res://.import/triangle_ship.png-ea16aa2d8eb34912c7a3f917ca4c27f7.s3tc.stex"
+path.etc2="res://.import/triangle_ship.png-ea16aa2d8eb34912c7a3f917ca4c27f7.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprites/icons/triangle_ship.png"
-dest_files=[ "res://.import/triangle_ship.png-2643dae883873189c952dffa4e4fee1f.s3tc.stex", "res://.import/triangle_ship.png-2643dae883873189c952dffa4e4fee1f.etc2.stex" ]
+source_file="res://assets/sprites/icons/ships/triangle_ship.png"
+dest_files=[ "res://.import/triangle_ship.png-ea16aa2d8eb34912c7a3f917ca4c27f7.s3tc.stex", "res://.import/triangle_ship.png-ea16aa2d8eb34912c7a3f917ca4c27f7.etc2.stex" ]
 
 [params]
 

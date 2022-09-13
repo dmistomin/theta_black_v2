@@ -1,9 +1,9 @@
 class_name ShipToken
 extends Spatial
 
-var FlagshipImage = preload("res://assets/sprites/icons/capital_ship.png")
-var TriangleImage = preload("res://assets/sprites/icons/triangle_ship.png")
-var SquareAndTriangleImage = preload("res://assets/sprites/icons/square_and_triangle_ship.png")
+var LambdaImage = preload("res://assets/sprites/icons/ships/lambda.png")
+var TriangleImage = preload("res://assets/sprites/icons/ships/triangle_ship.png")
+var SquareAndTriangleImage = preload("res://assets/sprites/icons/ships/square_and_triangle_ship.png")
 
 var ship
 
@@ -11,8 +11,15 @@ var ship
 func display(p_ship: Ship):
 	ship = p_ship
 
-	if ship.type == Enums.ShipType.FLAGSHIP:
-		$ShipIcon.texture = FlagshipImage
+	if ship.sub_type == Enums.ShipSubType.CORVETTE:
+		$ShipIcon.texture = LambdaImage
+	elif ship.sub_type == Enums.ShipSubType.FRIGATE:
+		$ShipIcon.texture = SquareAndTriangleImage
+	elif ship.sub_type == Enums.ShipSubType.DESTROYER:
+		$ShipIcon.texture = TriangleImage
+
+	if ship.owner == Enums.Actor.ENEMY:
+		$ShipIcon.modulate = Color.crimson
 
 	if ship.owner == Enums.Actor.PLAYER:
 		$ShipIcon.modulate = Color.dodgerblue
