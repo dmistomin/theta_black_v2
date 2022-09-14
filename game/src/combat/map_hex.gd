@@ -5,6 +5,8 @@ export(String) var scan_icon
 export(String) var control_icon
 export(String) var spawn_icon
 
+export(Color) var border_color
+
 var player_tokens := []
 var enemy_tokens := []
 
@@ -23,6 +25,20 @@ func _arrange_tokens_in_a_circle():
 	for i in range(count):
 		var token_position = (center + radius).rotated(Vector3.FORWARD, step * i)
 		combined_tokens[i].translation = token_position
+
+
+func _highlight_border(color: Color):
+	$HexBorder.modulate = color
+
+
+func _handle_cursor_enter():
+	_highlight_border(Color.white)
+	$HexBorder.render_priority = 5
+
+
+func _handle_cursor_exit():
+	_highlight_border(border_color)
+	$HexBorder.render_priority = 0
 
 
 func spawn_ship(ship: Ship):

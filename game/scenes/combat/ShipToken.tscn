@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/combat/ship_token.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/icons/ships/triangle_ship.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/icons/square.png" type="Texture" id=3]
+[ext_resource path="res://assets/fonts/Hack-Bold.ttf" type="DynamicFontData" id=4]
 
 [sub_resource type="CylinderMesh" id=3]
 top_radius = 0.005
@@ -15,6 +17,12 @@ emission_energy = 10.0
 emission_operator = 0
 emission_on_uv2 = false
 
+[sub_resource type="DynamicFont" id=5]
+size = 22
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
 [node name="ShipToken" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -25,5 +33,20 @@ material/0 = SubResource( 4 )
 
 [node name="ShipIcon" type="Sprite3D" parent="."]
 transform = Transform( 0.3, 0, 0, 0, -1.31134e-08, -1, 0, 0.3, -4.37114e-08, 0, 0.3, 0 )
-render_priority = 1
+render_priority = 10
 texture = ExtResource( 2 )
+
+[node name="ShipDesignation" type="Spatial" parent="."]
+
+[node name="Background" type="Sprite3D" parent="ShipDesignation"]
+transform = Transform( 0.4, 0, 0, 0, -1.74846e-08, -1, 0, 0.4, -4.37114e-08, 0, 0, 0.1 )
+cast_shadow = 0
+modulate = Color( 0.384314, 0.384314, 0.384314, 1 )
+render_priority = 2
+texture = ExtResource( 3 )
+
+[node name="Letter" type="Label3D" parent="ShipDesignation"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.01, 0.1 )
+render_priority = 2
+text = "?"
+font = SubResource( 5 )

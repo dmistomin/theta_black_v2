@@ -13,7 +13,7 @@ var effect
 
 
 func _init(p_owner, p_data):
-	
+	pass
 
 
 func get_data_id():
