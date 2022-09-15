@@ -10,6 +10,7 @@ var ship
 
 func display(p_ship: Ship):
 	ship = p_ship
+	ship.token = self
 
 	if ship.sub_type == Enums.ShipSubType.CORVETTE:
 		$ShipIcon.texture = LambdaImage

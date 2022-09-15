@@ -15,6 +15,7 @@ var sub_type
 var owner
 
 var data: ShipData
+var token
 
 
 func _init(p_owner, p_data):

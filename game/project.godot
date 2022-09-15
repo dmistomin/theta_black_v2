@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://src/cards/card.gd"
 }, {
 "base": "Reference",
+"class": "CardAction",
+"language": "GDScript",
+"path": "res://src/cards/card_action.gd"
+}, {
+"base": "Reference",
 "class": "CardList",
 "language": "GDScript",
 "path": "res://src/cards/card_list.gd"
@@ -37,7 +42,7 @@ _global_script_classes=[ {
 "base": "Control",
 "class": "HUD",
 "language": "GDScript",
-"path": "res://src/combat/hud.gd"
+"path": "res://src/combat/hud/hud.gd"
 }, {
 "base": "Spatial",
 "class": "Map",
@@ -69,6 +74,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/combat/sector_data.gd"
 }, {
+"base": "Control",
+"class": "SectorDetails",
+"language": "GDScript",
+"path": "res://src/combat/hud/sector_details.gd"
+}, {
 "base": "Reference",
 "class": "Ship",
 "language": "GDScript",
@@ -86,6 +96,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Card": "",
+"CardAction": "",
 "CardList": "",
 "Combat": "",
 "Enums": "",
@@ -97,6 +108,7 @@ _global_script_class_icons={
 "MapHex": "",
 "Sector": "",
 "SectorData": "",
+"SectorDetails": "",
 "Ship": "",
 "ShipData": "",
 "ShipToken": ""
@@ -157,6 +169,11 @@ move_camera_down={
 camera_speed={
 "deadzone": 0.5,
 "events": [  ]
+}
+click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
 }
 
 [physics]

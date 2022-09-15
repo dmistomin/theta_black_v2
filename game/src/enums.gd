@@ -3,6 +3,8 @@ extends Reference
 
 enum Actor { ENVIRONMENT, PLAYER, ENEMY }
 
+enum ActionType { ATTACK, MOVE, SCOUT, CONTROL }
+
 enum CardSuperType { OFFICER, CREW, EVENT }
 
 enum CardSubType { CAPTAIN, COMMANDER, SHIP, INSTANT, ONGOING }

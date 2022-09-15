@@ -1,14 +1,20 @@
 class_name MapHex
 extends Spatial
 
+signal on_hex_clicked(hex)
+signal on_hex_cursor_enter(hex)
+signal on_hex_cursor_exit(hex)
+
 export(String) var scan_icon
 export(String) var control_icon
 export(String) var spawn_icon
 
 export(Color) var border_color
+export(Color) var highlight_color
 
 var player_tokens := []
 var enemy_tokens := []
+var sector
 
 var ShipToken = preload("res://scenes/combat/ShipToken.tscn")
 
@@ -27,21 +33,33 @@ func _arrange_tokens_in_a_circle():
 		combined_tokens[i].translation = token_position
 
 
-func _highlight_border(color: Color):
+func highlight_border(color: Color):
 	$HexBorder.modulate = color
-
-
-func _handle_cursor_enter():
-	_highlight_border(Color.white)
 	$HexBorder.render_priority = 5
 
 
-func _handle_cursor_exit():
-	_highlight_border(border_color)
+func clear_border_highlight():
+	$HexBorder.modulate = border_color
 	$HexBorder.render_priority = 0
 
 
+func _handle_cursor_enter():
+	emit_signal("on_hex_cursor_enter", self)
+
+
+func _handle_cursor_exit():
+	emit_signal("on_hex_cursor_exit", self)
+
+
+func _handle_input_event(
+	_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int
+) -> void:
+	if event.is_action_released("click"):
+		emit_signal("on_hex_clicked", self)
+
+
 func spawn_ship(ship: Ship):
+	sector.add_ship(ship)
 	var token = ShipToken.instance()
 	token.display(ship)
 	$Ships.add_child(token)

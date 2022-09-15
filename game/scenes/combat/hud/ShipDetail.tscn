@@ -1,0 +1,66 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/Font Awesome 6 Free-Solid-900.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://assets/sprites/icons/square.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/icons/ships/triangle_ship.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=8]
+size = 15
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 1 )
+
+[node name="ShipDetail" type="NinePatchRect"]
+self_modulate = Color( 0.396078, 0.396078, 0.396078, 1 )
+margin_top = 34.0
+margin_right = 280.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 280, 40 )
+size_flags_horizontal = 3
+size_flags_vertical = 5
+texture = ExtResource( 2 )
+
+[node name="Layout" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ShipIcon" type="TextureRect" parent="Layout"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+rect_clip_content = true
+size_flags_vertical = 3
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="UnitLabel" type="TextureRect" parent="Layout"]
+self_modulate = Color( 0, 0, 0, 1 )
+margin_left = 44.0
+margin_top = 10.0
+margin_right = 64.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 20, 20 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="Layout/UnitLabel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "?"
+align = 1
+valign = 1
+
+[node name="StatLabel" type="Label" parent="Layout"]
+margin_left = 68.0
+margin_top = 5.0
+margin_right = 268.0
+margin_bottom = 35.0
+rect_min_size = Vector2( 200, 30 )
+custom_fonts/font = SubResource( 8 )
+text = " 0  0  0 "
+align = 1
+valign = 1

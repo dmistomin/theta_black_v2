@@ -12,6 +12,14 @@ var enemy_ships: Array
 var counters: Array
 
 
+func add_ship(new_ship: Ship):
+	if new_ship.owner == Enums.Actor.PLAYER:
+		player_ships.append(new_ship)
+
+	if new_ship.owner == Enums.Actor.ENEMY:
+		enemy_ships.append(new_ship)
+
+
 func update_map():
 	if map_hex != null:
 		map_hex.display(self)
