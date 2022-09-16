@@ -4,9 +4,7 @@ extends Reference
 var ship_class: String
 var ship_name: String
 
-var mass: int
 var shields: int
-var sensors: int
 var weapon_aim: int
 var weapon_damage: int
 var evasion: int
@@ -23,9 +21,7 @@ func _init(p_owner, p_data):
 	data = p_data
 
 	ship_class = data.ship_class
-	mass = data.mass
 	shields = data.shields
-	sensors = data.sensors
 	weapon_aim = data.weapon_aim
 	weapon_damage = data.weapon_damage
 	evasion = data.evasion

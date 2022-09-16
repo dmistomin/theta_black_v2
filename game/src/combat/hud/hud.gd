@@ -8,3 +8,7 @@ func display_hex_details(hex: MapHex):
 
 func hide_hex_details(_hex: MapHex):
 	$SectorDetails.hide()
+
+
+func _ready():
+	$BottomPanel/CardControls.setup()

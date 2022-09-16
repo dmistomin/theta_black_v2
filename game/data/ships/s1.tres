@@ -5,10 +5,8 @@
 [resource]
 script = ExtResource( 1 )
 ship_class = "Icarus"
-mass = 1
 crew_hp = 1
 shields = 0
-sensors = 1
 weapon_aim = 4
 weapon_damage = 1
 evasion = 14

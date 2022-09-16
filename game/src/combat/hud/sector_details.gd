@@ -20,10 +20,7 @@ func display(hex: MapHex):
 		ship_detail_box.get_node("Layout/ShipIcon").self_modulate = ps.token.get_node(
 			"ShipIcon"
 		).modulate
-		ship_detail_box.get_node("Layout/StatLabel").text = (
-			" %s .  %s .  %s .  %s"
-			% [ps.mass, ps.sensors, ps.shields, ps.evasion]
-		)
+		ship_detail_box.get_node("Layout/StatLabel").text = (" %s  %s" % [ps.shields, ps.evasion])
 		player_ship_details.append(ship_detail_box)
 		$ScrollBody/Body/AllySection.add_child(ship_detail_box)
 
@@ -33,10 +30,7 @@ func display(hex: MapHex):
 		ship_detail_box.get_node("Layout/ShipIcon").self_modulate = es.token.get_node(
 			"ShipIcon"
 		).modulate
-		ship_detail_box.get_node("Layout/StatLabel").text = (
-			" %s .  %s .  %s .  %s"
-			% [es.mass, es.sensors, es.shields, es.evasion]
-		)
+		ship_detail_box.get_node("Layout/StatLabel").text = (" %s  %s" % [es.shields, es.evasion])
 		enemy_ship_details.append(ship_detail_box)
 		$ScrollBody/Body/EnemySection.add_child(ship_detail_box)
 
