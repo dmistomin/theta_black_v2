@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/cards/card_action.gd"
 }, {
+"base": "Control",
+"class": "CardControls",
+"language": "GDScript",
+"path": "res://src/combat/hud/card_controls.gd"
+}, {
+"base": "Control",
+"class": "CardHand",
+"language": "GDScript",
+"path": "res://src/combat/hud/card_hand.gd"
+}, {
 "base": "Reference",
 "class": "CardList",
 "language": "GDScript",
@@ -93,10 +103,17 @@ _global_script_classes=[ {
 "class": "ShipToken",
 "language": "GDScript",
 "path": "res://src/combat/ship_token.gd"
+}, {
+"base": "Control",
+"class": "UICard",
+"language": "GDScript",
+"path": "res://src/ui/ui_card.gd"
 } ]
 _global_script_class_icons={
 "Card": "",
 "CardAction": "",
+"CardControls": "",
+"CardHand": "",
 "CardList": "",
 "Combat": "",
 "Enums": "",
@@ -111,7 +128,8 @@ _global_script_class_icons={
 "SectorDetails": "",
 "Ship": "",
 "ShipData": "",
-"ShipToken": ""
+"ShipToken": "",
+"UICard": ""
 }
 
 [application]

@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/ui/ui_card.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/cards/art/placeholder_art.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/cards/v_card_frame_shadow.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/cards/v_card_shadow.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/cards/v_card_base.png" type="Texture" id=5]
+
+[node name="UICard" type="Control"]
+margin_right = 250.0
+margin_bottom = 358.5
+rect_min_size = Vector2( 250, 358.5 )
+size_flags_vertical = 0
+script = ExtResource( 1 )
+
+[node name="CardShadow" type="TextureRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.392157 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Art" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="FrameShadow" type="TextureRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.392157 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="Frame" type="TextureRect" parent="."]
+self_modulate = Color( 0.4, 0.4, 0.4, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="Title" type="Label" parent="."]
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 6.0
+margin_right = -10.0
+margin_bottom = 36.0
+text = "Card Title"
+valign = 1

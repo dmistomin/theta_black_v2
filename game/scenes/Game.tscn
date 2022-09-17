@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/game.gd" type="Script" id=1]
 [ext_resource path="res://src/combat/combat.gd" type="Script" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://src/combat/hud/card_controls.gd" type="Script" id=16]
 [ext_resource path="res://assets/sprites/cards/v_card_glow.png" type="Texture" id=17]
 [ext_resource path="res://assets/fonts/Hack-Regular.ttf" type="DynamicFontData" id=18]
+[ext_resource path="res://src/combat/hud/card_hand.gd" type="Script" id=19]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 5 )
@@ -259,7 +260,14 @@ margin_bottom = 5.0
 mouse_filter = 2
 color = Color( 0.478431, 0.501961, 0.47451, 1 )
 
-[node name="SectionHeader" type="ColorRect" parent="Combat/HUD/BottomPanel"]
+[node name="CardControls" type="Control" parent="Combat/HUD/BottomPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 16 )
+hover_enabled = true
+
+[node name="CardHeader" type="ColorRect" parent="Combat/HUD/BottomPanel/CardControls"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -75.0
@@ -268,7 +276,7 @@ margin_bottom = 30.0
 mouse_filter = 2
 color = Color( 0.478431, 0.501961, 0.47451, 1 )
 
-[node name="Label" type="Label" parent="Combat/HUD/BottomPanel/SectionHeader"]
+[node name="Label" type="Label" parent="Combat/HUD/BottomPanel/CardControls/CardHeader"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 0.137255, 0.141176, 0.176471, 1 )
@@ -277,29 +285,20 @@ text = "CARDS"
 align = 1
 valign = 1
 
-[node name="ActiveCardBackground" type="ColorRect" parent="Combat/HUD/BottomPanel"]
-visible = false
+[node name="ActiveCardBackground" type="ColorRect" parent="Combat/HUD/BottomPanel/CardControls"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -450.0
 margin_right = 325.0
 color = Color( 0.137255, 0.141176, 0.176471, 1 )
 
-[node name="TopBorder" type="ColorRect" parent="Combat/HUD/BottomPanel/ActiveCardBackground"]
+[node name="TopBorder" type="ColorRect" parent="Combat/HUD/BottomPanel/CardControls/ActiveCardBackground"]
 anchor_right = 1.0
+margin_bottom = 5.0
 rect_min_size = Vector2( 0, 5 )
 color = Color( 0.478431, 0.501961, 0.47451, 1 )
 
-[node name="RightBorder" type="ColorRect" parent="Combat/HUD/BottomPanel/ActiveCardBackground"]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_bottom = -145.0
-rect_min_size = Vector2( 5, 0 )
-color = Color( 0.478431, 0.501961, 0.47451, 1 )
-
-[node name="SectionHeader" type="ColorRect" parent="Combat/HUD/BottomPanel/ActiveCardBackground"]
+[node name="SectionHeader" type="ColorRect" parent="Combat/HUD/BottomPanel/CardControls/ActiveCardBackground"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -62.5
@@ -308,7 +307,7 @@ margin_bottom = 30.0
 mouse_filter = 2
 color = Color( 0.478431, 0.501961, 0.47451, 1 )
 
-[node name="Label" type="Label" parent="Combat/HUD/BottomPanel/ActiveCardBackground/SectionHeader"]
+[node name="Label" type="Label" parent="Combat/HUD/BottomPanel/CardControls/ActiveCardBackground/SectionHeader"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_colors/font_color = Color( 0.137255, 0.141176, 0.176471, 1 )
@@ -317,12 +316,39 @@ text = "ACTIVE"
 align = 1
 valign = 1
 
-[node name="CardControls" type="Control" parent="Combat/HUD/BottomPanel"]
+[node name="Wedge" type="ColorRect" parent="Combat/HUD/BottomPanel/CardControls/ActiveCardBackground"]
+margin_left = 168.0
+margin_top = 132.0
+margin_right = 368.0
+margin_bottom = 525.5
+rect_rotation = -40.0
+mouse_filter = 2
+color = Color( 0.137255, 0.141176, 0.176471, 1 )
+
+[node name="RightBorder" type="ColorRect" parent="Combat/HUD/BottomPanel/CardControls/ActiveCardBackground/Wedge"]
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 0.124359
+margin_top = -0.473328
+margin_right = 5.12436
+margin_bottom = -0.473328
+rect_min_size = Vector2( 5, 0 )
 mouse_filter = 2
-script = ExtResource( 16 )
-hover_enabled = true
+color = Color( 0.478431, 0.501961, 0.47451, 1 )
+
+[node name="ActiveCardPosition" type="Control" parent="Combat/HUD/BottomPanel/CardControls/ActiveCardBackground"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -179.25
+margin_right = 125.0
+margin_bottom = 179.25
+rect_min_size = Vector2( 250, 358.5 )
+mouse_filter = 2
+size_flags_vertical = 0
 
 [node name="CardHand" type="HBoxContainer" parent="Combat/HUD/BottomPanel/CardControls"]
 anchor_left = 0.5
@@ -336,194 +362,7 @@ margin_bottom = 390.0
 mouse_filter = 2
 size_flags_vertical = 4
 alignment = 1
-
-[node name="Card" type="Control" parent="Combat/HUD/BottomPanel/CardControls/CardHand"]
-margin_left = 244.0
-margin_right = 494.0
-margin_bottom = 358.5
-rect_min_size = Vector2( 250, 358.5 )
-size_flags_vertical = 0
-
-[node name="CardShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-
-[node name="Art" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="FrameShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="Frame" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card"]
-self_modulate = Color( 0.4, 0.4, 0.4, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 6
-
-[node name="Title" type="Label" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card"]
-anchor_right = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = 36.0
-text = "Card Title"
-valign = 1
-
-[node name="Card2" type="Control" parent="Combat/HUD/BottomPanel/CardControls/CardHand"]
-margin_left = 498.0
-margin_right = 748.0
-margin_bottom = 358.5
-rect_min_size = Vector2( 250, 358.5 )
-size_flags_vertical = 0
-
-[node name="CardShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card2"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-
-[node name="Art" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="FrameShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card2"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="Frame" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card2"]
-self_modulate = Color( 0.4, 0.4, 0.4, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 6
-
-[node name="Title" type="Label" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card2"]
-anchor_right = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = 36.0
-text = "Card Title"
-valign = 1
-
-[node name="Card3" type="Control" parent="Combat/HUD/BottomPanel/CardControls/CardHand"]
-margin_left = 752.0
-margin_right = 1002.0
-margin_bottom = 358.5
-rect_min_size = Vector2( 250, 358.5 )
-size_flags_vertical = 0
-
-[node name="CardShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card3"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-
-[node name="Art" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card3"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="FrameShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card3"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="Frame" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card3"]
-self_modulate = Color( 0.4, 0.4, 0.4, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 6
-
-[node name="Title" type="Label" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card3"]
-anchor_right = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = 36.0
-text = "Card Title"
-valign = 1
-
-[node name="Card4" type="Control" parent="Combat/HUD/BottomPanel/CardControls/CardHand"]
-margin_left = 1006.0
-margin_right = 1256.0
-margin_bottom = 358.5
-rect_min_size = Vector2( 250, 358.5 )
-size_flags_vertical = 0
-
-[node name="CardShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card4"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-
-[node name="Art" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card4"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="FrameShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card4"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="Frame" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card4"]
-self_modulate = Color( 0.4, 0.4, 0.4, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 6
-
-[node name="Title" type="Label" parent="Combat/HUD/BottomPanel/CardControls/CardHand/Card4"]
-anchor_right = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = 36.0
-text = "Card Title"
-valign = 1
+script = ExtResource( 19 )
 
 [node name="DisplayCard" type="Control" parent="Combat/HUD/BottomPanel/CardControls"]
 visible = false
@@ -584,3 +423,15 @@ margin_right = -10.0
 margin_bottom = 36.0
 text = "Card Title"
 valign = 1
+
+[node name="DefaultCardPosition" type="Control" parent="Combat/HUD/BottomPanel/CardControls"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -125.0
+margin_top = -358.5
+margin_right = 125.0
+rect_min_size = Vector2( 250, 358.5 )
+mouse_filter = 2
+size_flags_vertical = 0

@@ -14,6 +14,7 @@ func _show_card_preview(card_in_hand):
 	card_in_hand.mouse_filter = MOUSE_FILTER_IGNORE
 
 	$DisplayCard.visible = true
+	$DisplayCard.rect_global_position = $DefaultCardPosition.rect_global_position
 	$DisplayCard.rect_global_position.x = card_in_hand.rect_global_position.x
 
 
@@ -27,15 +28,13 @@ func _stop_showing_card_preview():
 
 func _toggle_display_card_on_click(event: InputEvent):
 	if event.is_action_released("click"):
-		get_parent().get_node("ActiveCardBackground").visible = true
+		$ActiveCardBackground.visible = true
 		$DisplayCard.disconnect("mouse_exited", self, "_stop_showing_card_preview")
-		$DisplayCard.rect_global_position.x = 25
+		$DisplayCard.rect_global_position = $ActiveCardBackground/ActiveCardPosition.rect_global_position
 
 
 func setup():
 	$DisplayCard.connect("mouse_exited", self, "_stop_showing_card_preview")
 	$DisplayCard.connect("gui_input", self, "_toggle_display_card_on_click")
 
-	for card in $CardHand.get_children():
-		print("adding mouse_entered callback to card in hand")
-		card.connect("mouse_entered", self, "_show_card_preview", [card])
+	$CardHand.setup()
