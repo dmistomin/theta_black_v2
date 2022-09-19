@@ -1,16 +1,15 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://src/combat/ship_data.gd" type="Script" id=1]
+[ext_resource path="res://src/combat/ship/ship_data.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
 ship_class = "Theseus"
-mass = 2
 crew_hp = 2
 shields = 0
-sensors = 2
 weapon_aim = 2
 weapon_damage = 2
 evasion = 11
 super_type = "escort"
 sub_type = "destroyer"
+actions = [ "scan_3", "move_2" ]

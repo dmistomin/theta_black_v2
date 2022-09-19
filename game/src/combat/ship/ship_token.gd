@@ -26,12 +26,7 @@ func toggle_pulse(on: bool):
 		pulse_animation = get_tree().create_tween()
 		pulse_animation.set_loops()
 		pulse_animation.tween_property($ShipIcon, "modulate", Color.white, 0.33)
-
-		if ship.owner == Enums.Actor.ENEMY:
-			pulse_animation.tween_property($ShipIcon, "modulate", Color.crimson, 0.33)
-
-		if ship.owner == Enums.Actor.PLAYER:
-			pulse_animation.tween_property($ShipIcon, "modulate", Color.dodgerblue, 0.33)
+		pulse_animation.tween_property($ShipIcon, "modulate", Color.goldenrod, 0.33)
 
 		return
 

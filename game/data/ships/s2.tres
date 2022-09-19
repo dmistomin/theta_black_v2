@@ -1,6 +1,6 @@
 [gd_resource type="Resource" load_steps=2 format=2]
 
-[ext_resource path="res://src/combat/ship_data.gd" type="Script" id=1]
+[ext_resource path="res://src/combat/ship/ship_data.gd" type="Script" id=1]
 
 [resource]
 script = ExtResource( 1 )
@@ -12,3 +12,4 @@ weapon_damage = 1
 evasion = 12
 super_type = "escort"
 sub_type = "frigate"
+actions = [ "attack_+3:1", "scout_2" ]

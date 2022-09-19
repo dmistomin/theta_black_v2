@@ -22,3 +22,5 @@ enum ShipSubType {
 	DREADNOUGHT,
 	CARRIER
 }
+
+enum ShipActionType { NONE, ATTACK, MOVE, SCAN, SCOUT }

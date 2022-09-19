@@ -13,6 +13,8 @@ var super_type
 var sub_type
 var owner
 
+var actions: Array
+
 var data: ShipData
 var token
 
@@ -20,6 +22,23 @@ var token
 func _init(p_owner, p_data):
 	owner = p_owner
 	data = p_data
+
+	for action_string in data.actions:
+		var action_name = action_string.split("_")[0]
+		var action_values = action_string.split("_")[1]
+
+		match action_name:
+			"attack":
+				var to_hit = action_values.split(":")[0]
+				var damage = action_values.split(":")[1]
+
+				actions.append(AttackAction.new(self, int(to_hit), int(damage)))
+			"scan":
+				actions.append(ScanAction.new(self, int(action_values)))
+			"scout":
+				actions.append(ScoutAction.new(self, int(action_values)))
+			"move":
+				actions.append(MoveAction.new(self, int(action_values)))
 
 	ship_class = data.ship_class
 	shields = data.shields

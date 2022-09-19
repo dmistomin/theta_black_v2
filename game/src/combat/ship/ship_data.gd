@@ -12,6 +12,8 @@ export(int) var evasion
 export(String) var super_type
 export(String) var sub_type
 
+export(Array, String) var actions
+
 
 func get_data_id():
 	var split_path = resource_path.split(".tres")[0].split("/")

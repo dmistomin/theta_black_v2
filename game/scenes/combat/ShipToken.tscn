@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://src/combat/ship_token.gd" type="Script" id=1]
+[ext_resource path="res://src/combat/ship/ship_token.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/icons/ships/triangle_ship.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/icons/square.png" type="Texture" id=3]
 [ext_resource path="res://assets/fonts/Hack-Bold.ttf" type="DynamicFontData" id=4]

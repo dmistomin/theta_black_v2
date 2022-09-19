@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "ShipAction",
+"class": "AttackAction",
+"language": "GDScript",
+"path": "res://src/combat/ship/actions/attack_action.gd"
+}, {
 "base": "Reference",
 "class": "Card",
 "language": "GDScript",
@@ -84,6 +89,21 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/combat/map_hex.gd"
 }, {
+"base": "ShipAction",
+"class": "MoveAction",
+"language": "GDScript",
+"path": "res://src/combat/ship/actions/move_action.gd"
+}, {
+"base": "ShipAction",
+"class": "ScanAction",
+"language": "GDScript",
+"path": "res://src/combat/ship/actions/scan_action.gd"
+}, {
+"base": "ShipAction",
+"class": "ScoutAction",
+"language": "GDScript",
+"path": "res://src/combat/ship/actions/scout_action.gd"
+}, {
 "base": "Reference",
 "class": "Sector",
 "language": "GDScript",
@@ -102,7 +122,17 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "Ship",
 "language": "GDScript",
-"path": "res://src/combat/ship.gd"
+"path": "res://src/combat/ship/ship.gd"
+}, {
+"base": "Reference",
+"class": "ShipAction",
+"language": "GDScript",
+"path": "res://src/combat/ship/actions/ship_action.gd"
+}, {
+"base": "Control",
+"class": "ShipActionsPanel",
+"language": "GDScript",
+"path": "res://src/combat/hud/ship_actions_panel.gd"
 }, {
 "base": "Card",
 "class": "ShipCard",
@@ -112,12 +142,12 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "ShipData",
 "language": "GDScript",
-"path": "res://src/combat/ship_data.gd"
+"path": "res://src/combat/ship/ship_data.gd"
 }, {
 "base": "Spatial",
 "class": "ShipToken",
 "language": "GDScript",
-"path": "res://src/combat/ship_token.gd"
+"path": "res://src/combat/ship/ship_token.gd"
 }, {
 "base": "Control",
 "class": "UICard",
@@ -130,6 +160,7 @@ _global_script_classes=[ {
 "path": "res://src/cards/void_card.gd"
 } ]
 _global_script_class_icons={
+"AttackAction": "",
 "Card": "",
 "CardAction": "",
 "CardControls": "",
@@ -145,10 +176,15 @@ _global_script_class_icons={
 "MapCamera": "",
 "MapData": "",
 "MapHex": "",
+"MoveAction": "",
+"ScanAction": "",
+"ScoutAction": "",
 "Sector": "",
 "SectorData": "",
 "SectorDetails": "",
 "Ship": "",
+"ShipAction": "",
+"ShipActionsPanel": "",
 "ShipCard": "",
 "ShipData": "",
 "ShipToken": "",

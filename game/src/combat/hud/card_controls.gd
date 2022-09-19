@@ -59,6 +59,7 @@ func _toggle_display_card_on_click(event: InputEvent):
 			_toggle_hand(true)
 			_reset_cards_in_hand()
 			$CardHeader/Label.text = "CARDS"
+			$ShipActions.hide()
 
 			if $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
 				$DisplayCard.card.ship.token.toggle_pulse(false)
@@ -69,9 +70,11 @@ func _toggle_display_card_on_click(event: InputEvent):
 			$ActiveCardBackground.visible = true
 			$DisplayCard.rect_global_position = $ActiveCardBackground/ActiveCardPosition.rect_global_position
 			$CardHeader/Label.text = "ACTIONS"
+			$ShipActions.visible = true
 
 			if $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
 				$DisplayCard.card.ship.token.toggle_pulse(true)
+				$ShipActions.display_actions_for($DisplayCard.card.ship)
 
 
 func draw_cards(list_of_cards):
