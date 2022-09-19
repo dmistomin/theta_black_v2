@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/cards/card_data.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+card_name = "Void"
+description = "A card that does nothing"
+initiative = 0
+super_type = "void"
+sub_type = "void"

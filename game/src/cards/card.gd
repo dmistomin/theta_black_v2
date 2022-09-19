@@ -9,11 +9,14 @@ var sub_type
 var owner
 
 var data
-var effect
 
 
-func _init(p_owner, p_data):
-	pass
+func _init(p_owner, p_initiative, p_super_type, p_sub_type, p_data):
+	owner = p_owner
+	initiative = p_initiative
+	super_type = p_super_type
+	sub_type = p_sub_type
+	data = p_data
 
 
 func get_data_id():

@@ -28,9 +28,13 @@ func _show_card_preview(card_in_hand):
 	card_in_hand.modulate.a = 0
 	card_in_hand.mouse_filter = MOUSE_FILTER_IGNORE
 
+	$DisplayCard.display(card_in_hand.card)
 	$DisplayCard.visible = true
 	$DisplayCard.rect_global_position = $DefaultCardPosition.rect_global_position
 	$DisplayCard.rect_global_position.x = card_in_hand.rect_global_position.x
+
+	if card_in_hand.card.super_type == Enums.CardSuperType.CREW:
+		card_in_hand.card.ship.token.toggle_pulse(true)
 
 
 func _stop_showing_card_preview():
@@ -38,6 +42,9 @@ func _stop_showing_card_preview():
 		return
 
 	$DisplayCard.visible = false
+
+	if $DisplayCard.card != null and $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
+		$DisplayCard.card.ship.token.toggle_pulse(false)
 
 	_reset_cards_in_hand()
 
@@ -52,6 +59,9 @@ func _toggle_display_card_on_click(event: InputEvent):
 			_toggle_hand(true)
 			_reset_cards_in_hand()
 			$CardHeader/Label.text = "CARDS"
+
+			if $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
+				$DisplayCard.card.ship.token.toggle_pulse(false)
 		else:
 			display_card_locked = true
 			hover_enabled = false
@@ -60,15 +70,19 @@ func _toggle_display_card_on_click(event: InputEvent):
 			$DisplayCard.rect_global_position = $ActiveCardBackground/ActiveCardPosition.rect_global_position
 			$CardHeader/Label.text = "ACTIONS"
 
+			if $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
+				$DisplayCard.card.ship.token.toggle_pulse(true)
+
+
+func draw_cards(list_of_cards):
+	for c in list_of_cards:
+		var new_card = UICard.instance()
+		new_card.display(c)
+		$CardHand.add_child(new_card)
+		cards_in_hand.append(new_card)
+		new_card.connect("mouse_entered", self, "_show_card_preview", [new_card])
+
 
 func setup():
 	$DisplayCard.connect("mouse_exited", self, "_stop_showing_card_preview")
 	$DisplayCard.connect("gui_input", self, "_toggle_display_card_on_click")
-
-	for i in range(4):
-		var new_card = UICard.instance()
-		$CardHand.add_child(new_card)
-		cards_in_hand.append(new_card)
-
-	for card in $CardHand.get_children():
-		card.connect("mouse_entered", self, "_show_card_preview", [card])

@@ -5,10 +5,8 @@
 [resource]
 script = ExtResource( 1 )
 ship_class = "Medusa"
-mass = 2
 crew_hp = 1
 shields = 0
-sensors = 2
 weapon_aim = 3
 weapon_damage = 1
 evasion = 12

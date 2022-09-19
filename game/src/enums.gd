@@ -5,9 +5,9 @@ enum Actor { ENVIRONMENT, PLAYER, ENEMY }
 
 enum ActionType { ATTACK, MOVE, SCOUT, CONTROL }
 
-enum CardSuperType { OFFICER, CREW, EVENT }
+enum CardSuperType { OFFICER, CREW, EVENT, VOID }
 
-enum CardSubType { CAPTAIN, COMMANDER, SHIP, INSTANT, ONGOING }
+enum CardSubType { CAPTAIN, COMMANDER, SHIP, INSTANT, ONGOING, VOID }
 
 enum ShipSuperType { SCOUT, CRUISER, CAPITAL_SHIP }
 

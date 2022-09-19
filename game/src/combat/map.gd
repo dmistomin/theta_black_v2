@@ -84,6 +84,8 @@ func spawn_new_token_at(ship_class: String, ship_owner, map_hex: MapHex):
 
 	map_hex.spawn_ship(ship)
 
+	return ship
+
 
 func _ready() -> void:
 	hex_grid.hex_scale = hex_scale

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://src/game.gd" type="Script" id=1]
 [ext_resource path="res://src/combat/combat.gd" type="Script" id=2]
@@ -8,15 +8,11 @@
 [ext_resource path="res://assets/textures/dot_texture.png" type="Texture" id=6]
 [ext_resource path="res://assets/base_ui.tres" type="Theme" id=7]
 [ext_resource path="res://assets/fonts/Hack-Bold.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://assets/sprites/cards/v_card_shadow.png" type="Texture" id=9]
-[ext_resource path="res://assets/sprites/cards/v_card_base.png" type="Texture" id=10]
-[ext_resource path="res://assets/sprites/cards/art/placeholder_art.png" type="Texture" id=11]
-[ext_resource path="res://assets/sprites/cards/v_card_frame_shadow.png" type="Texture" id=12]
+[ext_resource path="res://scenes/ui/UICard.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/combat/hud/hud.gd" type="Script" id=13]
 [ext_resource path="res://assets/sprites/point_to_hex_outline.png" type="Texture" id=14]
 [ext_resource path="res://src/combat/hud/sector_details.gd" type="Script" id=15]
 [ext_resource path="res://src/combat/hud/card_controls.gd" type="Script" id=16]
-[ext_resource path="res://assets/sprites/cards/v_card_glow.png" type="Texture" id=17]
 [ext_resource path="res://assets/fonts/Hack-Regular.ttf" type="DynamicFontData" id=18]
 [ext_resource path="res://src/combat/hud/card_hand.gd" type="Script" id=19]
 
@@ -365,7 +361,7 @@ size_flags_vertical = 4
 alignment = 1
 script = ExtResource( 19 )
 
-[node name="DisplayCard" type="Control" parent="Combat/HUD/BottomPanel/CardControls"]
+[node name="DisplayCard" parent="Combat/HUD/BottomPanel/CardControls" instance=ExtResource( 9 )]
 visible = false
 anchor_left = 0.5
 anchor_top = 1.0
@@ -374,56 +370,7 @@ anchor_bottom = 1.0
 margin_left = -125.0
 margin_top = -358.5
 margin_right = 125.0
-rect_min_size = Vector2( 250, 358.5 )
-size_flags_vertical = 0
-
-[node name="CardShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/DisplayCard"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 9 )
-expand = true
-stretch_mode = 6
-
-[node name="CardGlow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/DisplayCard"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 17 )
-expand = true
-stretch_mode = 6
-
-[node name="Art" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/DisplayCard"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 6
-
-[node name="FrameShadow" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/DisplayCard"]
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 6
-
-[node name="Frame" type="TextureRect" parent="Combat/HUD/BottomPanel/CardControls/DisplayCard"]
-self_modulate = Color( 0.4, 0.4, 0.4, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 10 )
-expand = true
-stretch_mode = 6
-
-[node name="Title" type="Label" parent="Combat/HUD/BottomPanel/CardControls/DisplayCard"]
-anchor_right = 1.0
-margin_left = 10.0
-margin_top = 6.0
-margin_right = -10.0
-margin_bottom = 36.0
-text = "Card Title"
-valign = 1
+margin_bottom = 0.0
 
 [node name="DefaultCardPosition" type="Control" parent="Combat/HUD/BottomPanel/CardControls"]
 anchor_left = 0.5

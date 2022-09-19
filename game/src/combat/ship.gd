@@ -3,6 +3,7 @@ extends Reference
 
 var ship_class: String
 var ship_name: String
+var ship_squadron: String
 
 var shields: int
 var weapon_aim: int
@@ -57,3 +58,10 @@ func _init(p_owner, p_data):
 			printerr(
 				"No match on ship type '%s' for ship class '%s'!" % [data.sub_type, data.ship_class]
 			)
+
+
+func set_squadron(p_squadron: String):
+	ship_squadron = p_squadron
+
+	if token != null:
+		token.display(self)

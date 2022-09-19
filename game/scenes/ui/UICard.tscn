@@ -1,10 +1,31 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/ui/ui_card.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/cards/art/placeholder_art.png" type="Texture" id=2]
+[ext_resource path="res://assets/art/placeholder_art.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/cards/v_card_frame_shadow.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/cards/v_card_shadow.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/cards/v_card_base.png" type="Texture" id=5]
+[ext_resource path="res://assets/fonts/Hack-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://assets/sprites/icons/square.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/icons/ships/normalized_lambda_ship.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/cards/v_card_glow.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 10
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=3]
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 6 )
 
 [node name="UICard" type="Control"]
 margin_right = 250.0
@@ -12,18 +33,33 @@ margin_bottom = 358.5
 rect_min_size = Vector2( 250, 358.5 )
 size_flags_vertical = 0
 script = ExtResource( 1 )
+officer_card_color = Color( 0.505882, 0.160784, 0.12549, 1 )
+crew_card_color = Color( 0.231373, 0.423529, 0.752941, 1 )
+event_card_color = Color( 0.603922, 0.47451, 0.027451, 1 )
+void_card_color = Color( 0.266667, 0.266667, 0.301961, 1 )
 
 [node name="CardShadow" type="TextureRect" parent="."]
 self_modulate = Color( 1, 1, 1, 0.392157 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="CardGlow" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 9 )
 expand = true
 stretch_mode = 6
 
 [node name="Art" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 6
@@ -32,6 +68,7 @@ stretch_mode = 6
 self_modulate = Color( 1, 1, 1, 0.392157 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
@@ -40,6 +77,7 @@ stretch_mode = 6
 self_modulate = Color( 0.4, 0.4, 0.4, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
@@ -48,7 +86,88 @@ stretch_mode = 6
 anchor_right = 1.0
 margin_left = 10.0
 margin_top = 6.0
-margin_right = -10.0
+margin_right = -40.0
 margin_bottom = 36.0
 text = "Card Title"
 valign = 1
+
+[node name="TypeInfo" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -37.5
+margin_top = -43.5
+margin_right = 37.5
+margin_bottom = -23.5
+mouse_filter = 2
+color = Color( 0.4, 0.4, 0.4, 1 )
+
+[node name="Label" type="Label" parent="TypeInfo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 1 )
+text = "SUPER - SUB"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="SquadronInfo" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -68.5
+margin_right = 20.0
+margin_bottom = -48.5
+mouse_filter = 2
+color = Color( 0.4, 0.4, 0.4, 1 )
+
+[node name="LetterLabel" type="Label" parent="SquadronInfo"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -10.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 3 )
+text = "?"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="ShipIcon" type="TextureRect" parent="SquadronInfo"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 6.0
+margin_top = -6.0
+margin_right = 16.0
+margin_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+expand = true
+
+[node name="Initiative" type="TextureRect" parent="."]
+self_modulate = Color( 0.156863, 0.156863, 0.156863, 1 )
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -36.0
+margin_top = 7.0
+margin_right = -8.5
+margin_bottom = 34.5
+rect_min_size = Vector2( 25, 25 )
+mouse_filter = 2
+texture = ExtResource( 7 )
+expand = true
+
+[node name="Label" type="Label" parent="Initiative"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "X"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true

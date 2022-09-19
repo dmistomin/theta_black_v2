@@ -16,7 +16,7 @@ func display(hex: MapHex):
 
 	for ps in hex.sector.player_ships:
 		var ship_detail_box = ShipDetail.instance()
-		ship_detail_box.get_node("Layout/ShipIcon").texture = ps.token.get_node("ShipIcon").texture
+		ship_detail_box.get_node("Layout/ShipIcon").texture = ps.token.normalized_ship_icon
 		ship_detail_box.get_node("Layout/ShipIcon").self_modulate = ps.token.get_node(
 			"ShipIcon"
 		).modulate
@@ -26,7 +26,7 @@ func display(hex: MapHex):
 
 	for es in hex.sector.enemy_ships:
 		var ship_detail_box = ShipDetail.instance()
-		ship_detail_box.get_node("Layout/ShipIcon").texture = es.token.get_node("ShipIcon").texture
+		ship_detail_box.get_node("Layout/ShipIcon").texture = es.token.normalized_ship_icon
 		ship_detail_box.get_node("Layout/ShipIcon").self_modulate = es.token.get_node(
 			"ShipIcon"
 		).modulate

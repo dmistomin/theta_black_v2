@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/placeholder_art.png-89bfaa60f05dbc1d9578cbb00416de9c.stex"
+path="res://.import/normalized_square_and_triangle_ship.png-74a7aea07a274f112da06340d634c25b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/cards/art/placeholder_art.png"
-dest_files=[ "res://.import/placeholder_art.png-89bfaa60f05dbc1d9578cbb00416de9c.stex" ]
+source_file="res://assets/sprites/icons/ships/normalized_square_and_triangle_ship.png"
+dest_files=[ "res://.import/normalized_square_and_triangle_ship.png-74a7aea07a274f112da06340d634c25b.stex" ]
 
 [params]
 
