@@ -9,6 +9,57 @@ var enemy_deck = CardList.new()
 var enemy_hand = []
 var enemy_discard = CardList.new()
 
+var current_state = Enums.CombatState.PAUSED
+
+var _state_transitions = {
+	Enums.CombatState.PAUSED: [Enums.CombatState.ANY],
+	Enums.CombatState.PLAYER_TURN_UNFOCUSED:
+	[Enums.CombatState.PAUSED, Enums.CombatState.PLAYER_TURN_CARD_SELECTED],
+	Enums.CombatState.PLAYER_TURN_CARD_SELECTED:
+	[
+		Enums.CombatState.PAUSED,
+		Enums.CombatState.PLAYER_TURN_UNFOCUSED,
+		Enums.CombatState.PLAYER_TURN_ACTION_SELECTED
+	],
+	Enums.CombatState.PLAYER_TURN_ACTION_SELECTED:
+	[
+		Enums.CombatState.PAUSED,
+		Enums.CombatState.PLAYER_TURN_CARD_SELECTED,
+		Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING
+	],
+}
+
+
+func _on_request_change_state(new_state):
+	var prev_state = current_state
+
+	if (
+		not (new_state in _state_transitions[prev_state])
+		and not (Enums.CombatState.ANY in _state_transitions[prev_state])
+	):
+		printerr(
+			(
+				"Invalid state transition! Attempted to pass from '%s' to '%s'"
+				% [Enums.CombatState.keys()[prev_state], Enums.CombatState.keys()[new_state]]
+			)
+		)
+		return
+
+	match new_state:
+		Enums.CombatState.PAUSED:
+			print("Pause")
+			$Map.toggle_hex_hover(false)
+			$Map.toggle_hex_select(false)
+		Enums.CombatState.PLAYER_TURN_UNFOCUSED:
+			print("Player turn - unfocused")
+			$Map.toggle_hex_hover(true)
+			$Map.toggle_hex_select(true)
+		Enums.CombatState.PLAYER_TURN_CARD_SELECTED:
+			print("Player turn - card selected")
+		Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING:
+			print("Player turn - action resolving")
+			$HUD/SectorDetails.hide()
+
 
 func _setup_game():
 	var ship_1 = $Map.spawn_new_token_at(
@@ -26,20 +77,18 @@ func _setup_game():
 			ShipCard.new(Enums.Actor.PLAYER, 6, ship_2),
 			VoidCard.new(Enums.Actor.PLAYER),
 			VoidCard.new(Enums.Actor.PLAYER),
+			CommandCard.new(Enums.Actor.PLAYER, preload("res://data/cards/o1.tres"))
 		]
 	)
 	player_deck.shuffle()
 
 	player_hand = player_deck.draw(4)
 
+	_on_request_change_state(Enums.CombatState.PLAYER_TURN_UNFOCUSED)
+
 
 func _ready() -> void:
 	$Map.load_map("m1")
-
-	#$Map.spawn_new_token_at("s1", Enums.Actor.PLAYER, $Map.sectors[Vector2(0, 0)].map_hex)
-	#$Map.spawn_new_token_at("s2", Enums.Actor.PLAYER, $Map.sectors[Vector2(0, 0)].map_hex)
-	#$Map.spawn_new_token_at("s3", Enums.Actor.ENEMY, $Map.sectors[Vector2(0, 0)].map_hex)
-	#$Map.spawn_new_token_at("s2", Enums.Actor.ENEMY, $Map.sectors[Vector2(0, 0)].map_hex)
 
 	$Map.connect("on_hex_focus", $HUD, "display_hex_details")
 	$Map.connect("on_hex_unfocus", $HUD, "hide_hex_details")

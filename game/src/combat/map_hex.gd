@@ -72,10 +72,10 @@ func spawn_ship(ship: Ship):
 
 
 func display(sector: Sector):
-	if sector.player_scan_level > 0:
+	if sector.player_scanned:
 		$Markers/PlayerScanMark.visible = true
-		$Markers/PlayerScanMark/Icon.text = "%s %s" % [scan_icon, sector.player_scan_level]
+		$Markers/PlayerScanMark/Icon.text = "%s" % scan_icon
 
-	if sector.enemy_scan_level > 0:
+	if sector.enemy_scanned:
 		$Markers/EnemyScanMark.visible = true
-		$Markers/EnemyScanMark/Icon.text = "%s %s" % [scan_icon, sector.enemy_scan_level]
+		$Markers/EnemyScanMark/Icon.text = "%s" % scan_icon

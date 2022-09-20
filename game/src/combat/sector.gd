@@ -5,8 +5,8 @@ var coordinates: Vector2
 var cell
 var map_hex
 
-var player_scan_level: int
-var enemy_scan_level: int
+var player_scanned: bool
+var enemy_scanned: bool
 var player_ships: Array
 var enemy_ships: Array
 var counters: Array

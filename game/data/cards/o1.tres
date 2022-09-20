@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-card_name = "Void"
-description = "A card that does nothing"
-initiative = 0
-super_type = "void"
-sub_type = "void"
+card_name = "Fleet Commander"
+description = ""
+initiative = 9
+super_type = "officer"
+sub_type = "commander"
 actions = [  ]

@@ -9,6 +9,9 @@ export(Vector2) var hex_scale
 export(Color) var hex_highlight_color
 export(Color) var hex_focus_color
 
+export(bool) var hex_hover_enabled
+export(bool) var hex_select_enabled
+
 var HexGrid = preload("res://lib/godot-gdhexgrid/HexGrid.gd")
 var HexCell = preload("res://lib/godot-gdhexgrid/HexCell.gd")
 var MapHex = preload("res://scenes/combat/MapHex.tscn")
@@ -20,7 +23,7 @@ var focused_hex
 
 
 func _handle_hex_hover_start(hex: MapHex):
-	if hex == focused_hex:
+	if hex == focused_hex or (not hex_hover_enabled):
 		return
 	hex.highlight_border(hex_highlight_color)
 
@@ -32,6 +35,9 @@ func _handle_hex_hover_stop(hex: MapHex):
 
 
 func _handle_hex_click(hex: MapHex):
+	if not hex_select_enabled:
+		return
+
 	if focused_hex != null:
 		focused_hex.clear_border_highlight()
 		emit_signal("on_hex_unfocus", focused_hex)
@@ -43,6 +49,23 @@ func _handle_hex_click(hex: MapHex):
 	focused_hex = hex
 	emit_signal("on_hex_focus", focused_hex)
 	hex.highlight_border(hex_focus_color)
+
+
+func toggle_hex_hover(on: bool):
+	hex_hover_enabled = on
+
+	if not on:
+		for coord in sectors.keys():
+			var hex = sectors[coord]
+			hex.clear_border_highlight()
+
+
+func toggle_hex_select(on: bool):
+	hex_select_enabled = on
+
+	if not on:
+		focused_hex.clear_border_highlight()
+		focused_hex = null
 
 
 func load_map(map_name: String) -> void:
@@ -69,12 +92,12 @@ func load_map(map_name: String) -> void:
 
 	for scan_levels in map_data.player_scanned_sectors:
 		var coords = Vector2(scan_levels.x, scan_levels.y)
-		sectors[coords].player_scan_level = scan_levels.z
+		sectors[coords].player_scanned = true
 		sectors[coords].update_map()
 
 	for scan_levels in map_data.enemy_scanned_sectors:
 		var coords = Vector2(scan_levels.x, scan_levels.y)
-		sectors[coords].enemy_scan_level = scan_levels.z
+		sectors[coords].enemy_scanned = true
 		sectors[coords].update_map()
 
 

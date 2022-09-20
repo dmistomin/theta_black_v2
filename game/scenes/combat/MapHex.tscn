@@ -43,7 +43,7 @@ texture = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 no_depth_test = true
 render_priority = 2
-text = " 0"
+text = ""
 font = SubResource( 1 )
 
 [node name="PlayerSpawnMark" type="Spatial" parent="Markers"]
@@ -94,7 +94,7 @@ texture = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 no_depth_test = true
 render_priority = 2
-text = " 0"
+text = ""
 font = SubResource( 1 )
 
 [node name="EnemySpawnMark" type="Spatial" parent="Markers"]
