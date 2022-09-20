@@ -56,7 +56,7 @@ func toggle_hex_hover(on: bool):
 
 	if not on:
 		for coord in sectors.keys():
-			var hex = sectors[coord]
+			var hex = sectors[coord].map_hex
 			hex.clear_border_highlight()
 
 
@@ -64,8 +64,9 @@ func toggle_hex_select(on: bool):
 	hex_select_enabled = on
 
 	if not on:
-		focused_hex.clear_border_highlight()
-		focused_hex = null
+		if focused_hex:
+			focused_hex.clear_border_highlight()
+			focused_hex = null
 
 
 func load_map(map_name: String) -> void:

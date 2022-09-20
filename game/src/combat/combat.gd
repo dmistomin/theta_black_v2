@@ -30,7 +30,7 @@ var _state_transitions = {
 }
 
 
-func _on_request_change_state(new_state):
+func _on_request_change_state(new_state, data):
 	var prev_state = current_state
 
 	if (
@@ -54,8 +54,15 @@ func _on_request_change_state(new_state):
 			print("Player turn - unfocused")
 			$Map.toggle_hex_hover(true)
 			$Map.toggle_hex_select(true)
+			$HUD/BottomPanel/CardControls.toggle_display_card_actions_panel(false)
 		Enums.CombatState.PLAYER_TURN_CARD_SELECTED:
 			print("Player turn - card selected")
+			$HUD/BottomPanel/CardControls.toggle_display_card_actions_panel(true)
+		Enums.CombatState.PLAYER_TURN_ACTION_SELECTED:
+			print("Player turn - action selected")
+			$Map.toggle_hex_hover(false)
+			$Map.toggle_hex_select(false)
+			$HUD/SectorDetails.hide()
 		Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING:
 			print("Player turn - action resolving")
 			$HUD/SectorDetails.hide()
@@ -83,8 +90,7 @@ func _setup_game():
 	player_deck.shuffle()
 
 	player_hand = player_deck.draw(4)
-
-	_on_request_change_state(Enums.CombatState.PLAYER_TURN_UNFOCUSED)
+	_on_request_change_state(Enums.CombatState.PLAYER_TURN_UNFOCUSED, null)
 
 
 func _ready() -> void:
@@ -94,4 +100,9 @@ func _ready() -> void:
 	$Map.connect("on_hex_unfocus", $HUD, "hide_hex_details")
 
 	_setup_game()
+
+	$HUD/BottomPanel/CardControls.connect("request_change_state", self, "_on_request_change_state")
+	$HUD/BottomPanel/CardControls/ShipActions.connect(
+		"request_change_state", self, "_on_request_change_state"
+	)
 	$HUD/BottomPanel/CardControls.draw_cards(player_hand)

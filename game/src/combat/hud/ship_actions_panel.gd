@@ -1,6 +1,8 @@
 class_name ShipActionsPanel
 extends Control
 
+signal request_change_state(new_state, data)
+
 var ShipActionPanel = preload("res://scenes/combat/hud/ShipActionPanel.tscn")
 
 var action_mappings = {
@@ -10,6 +12,17 @@ var action_mappings = {
 }
 
 var actions = []
+var current_action
+
+
+func _handle_action_click(clicked_action):
+	print("_handle_action_click()")
+	current_action = clicked_action
+	emit_signal(
+		"request_change_state",
+		Enums.CombatState.PLAYER_TURN_ACTION_SELECTED,
+		{"action": clicked_action}
+	)
 
 
 func hide():
@@ -32,6 +45,7 @@ func display_actions_for(ship):
 
 		panel.get_node("ActionButton/Label").text = Enums.ShipActionType.keys()[a.type]
 		panel.get_node("ActionButton/Icon").text = action_mappings[a.type]
+		panel.get_node("ActionButton").connect("pressed", self, "_handle_action_click", [a])
 
 		match a.type:
 			Enums.ShipActionType.ATTACK:

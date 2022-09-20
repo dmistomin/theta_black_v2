@@ -1,11 +1,42 @@
 class_name CardControls
 extends Control
 
+signal request_change_state(new_state, data)
+
 export(bool) var hover_enabled
 export(bool) var display_card_locked
 
 var UICard = preload("res://scenes/ui/UICard.tscn")
 var cards_in_hand = []
+
+
+func toggle_display_card_actions_panel(on: bool):
+	if on:
+		display_card_locked = true
+		hover_enabled = false
+		_toggle_hand(false)
+		$ActiveCardBackground.visible = true
+		$DisplayCard.rect_global_position = $ActiveCardBackground/ActiveCardPosition.rect_global_position
+		$CardHeader/Label.text = "ACTIONS"
+		$ShipActions.visible = true
+
+		if $DisplayCard.card and $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
+			$DisplayCard.card.ship.token.toggle_pulse(true)
+			$ShipActions.display_actions_for($DisplayCard.card.ship)
+
+		return
+
+	display_card_locked = false
+	hover_enabled = true
+	$DisplayCard.visible = false
+	$ActiveCardBackground.visible = false
+	_toggle_hand(true)
+	_reset_cards_in_hand()
+	$CardHeader/Label.text = "CARDS"
+	$ShipActions.hide()
+
+	if $DisplayCard.card and $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
+		$DisplayCard.card.ship.token.toggle_pulse(false)
 
 
 func _toggle_hand(on: bool):
@@ -52,29 +83,13 @@ func _stop_showing_card_preview():
 func _toggle_display_card_on_click(event: InputEvent):
 	if event.is_action_released("click"):
 		if display_card_locked:
-			display_card_locked = false
-			hover_enabled = true
-			$DisplayCard.visible = false
-			$ActiveCardBackground.visible = false
-			_toggle_hand(true)
-			_reset_cards_in_hand()
-			$CardHeader/Label.text = "CARDS"
-			$ShipActions.hide()
-
-			if $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
-				$DisplayCard.card.ship.token.toggle_pulse(false)
+			emit_signal("request_change_state", Enums.CombatState.PLAYER_TURN_UNFOCUSED, null)
 		else:
-			display_card_locked = true
-			hover_enabled = false
-			_toggle_hand(false)
-			$ActiveCardBackground.visible = true
-			$DisplayCard.rect_global_position = $ActiveCardBackground/ActiveCardPosition.rect_global_position
-			$CardHeader/Label.text = "ACTIONS"
-			$ShipActions.visible = true
-
-			if $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
-				$DisplayCard.card.ship.token.toggle_pulse(true)
-				$ShipActions.display_actions_for($DisplayCard.card.ship)
+			emit_signal(
+				"request_change_state",
+				Enums.CombatState.PLAYER_TURN_CARD_SELECTED,
+				{"card": $DisplayCard.card}
+			)
 
 
 func draw_cards(list_of_cards):
