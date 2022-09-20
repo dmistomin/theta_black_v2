@@ -62,6 +62,7 @@ func spawn_ship(ship: Ship):
 	sector.add_ship(ship)
 	var token = ShipToken.instance()
 	token.display(ship)
+	token.current_sector = sector
 	$Ships.add_child(token)
 
 	player_tokens.append(token)

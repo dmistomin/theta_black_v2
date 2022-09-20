@@ -10,6 +10,7 @@ var SquareAndTriangleImage = preload("res://assets/sprites/icons/ships/square_an
 var NormalizedSquareAndTriangleImage = preload("res://assets/sprites/icons/ships/normalized_square_and_triangle_ship.png")
 
 var ship
+var current_sector
 
 var ship_icon
 var normalized_ship_icon

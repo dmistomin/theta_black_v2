@@ -1,8 +1,7 @@
 class_name ScoutAction
-extends ShipAction
-
-var move_value: int
+extends MoveAction
 
 
-func _init(p_ship, p_move_value).(Enums.ShipActionType.SCOUT, p_ship):
+func _init(p_ship, p_move_value).(p_ship, p_move_value):
 	move_value = p_move_value
+	type = Enums.ShipActionType.SCOUT

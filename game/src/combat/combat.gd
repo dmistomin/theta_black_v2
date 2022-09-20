@@ -63,6 +63,8 @@ func _on_request_change_state(new_state, data):
 			$Map.toggle_hex_hover(false)
 			$Map.toggle_hex_select(false)
 			$HUD/SectorDetails.hide()
+			$HUD/BottomPanel/CardControls.show_action_detail_for(data["action"])
+			data["action"].show_action_controls($Map)
 		Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING:
 			print("Player turn - action resolving")
 			$HUD/SectorDetails.hide()

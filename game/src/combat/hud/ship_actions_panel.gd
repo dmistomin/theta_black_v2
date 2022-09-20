@@ -25,13 +25,14 @@ func _handle_action_click(clicked_action):
 	)
 
 
-func hide():
+func clear_and_hide():
 	visible = false
 
 	for a in actions:
 		a.queue_free()
 
 	actions = []
+	current_action = null
 
 
 func display_actions_for(ship):

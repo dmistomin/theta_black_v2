@@ -33,10 +33,17 @@ func toggle_display_card_actions_panel(on: bool):
 	_toggle_hand(true)
 	_reset_cards_in_hand()
 	$CardHeader/Label.text = "CARDS"
-	$ShipActions.hide()
+	$ShipActions.clear_and_hide()
 
 	if $DisplayCard.card and $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
 		$DisplayCard.card.ship.token.toggle_pulse(false)
+
+
+func show_action_detail_for(action):
+	$ShipActions.clear_and_hide()
+
+	if action is ShipAction:
+		$CardHeader/Label.text = "SELECT TARGETS FOR %s" % Enums.ShipActionType.keys()[action.type]
 
 
 func _toggle_hand(on: bool):
