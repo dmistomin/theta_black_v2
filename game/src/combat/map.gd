@@ -3,6 +3,8 @@ extends Spatial
 
 signal on_hex_focus(hex)
 signal on_hex_unfocus(hex)
+signal on_hex_hover_start(hex)
+signal on_hex_hover_stop(hex)
 signal on_path_selected(path)
 
 export(Vector2) var hex_scale
@@ -11,6 +13,7 @@ export(Color) var hex_highlight_color
 export(Color) var hex_focus_color
 
 export(bool) var hex_hover_enabled
+export(bool) var hex_hover_fx_enabled
 export(bool) var hex_select_enabled
 
 var HexGrid = preload("res://lib/godot-gdhexgrid/HexGrid.gd")
@@ -23,20 +26,60 @@ var sectors = {}
 var focused_hex
 
 var path = []
+var path_origin
 var max_path_length
 var hex_options_for_path = []
+var remaining_hex_options_for_path = []
+
+
+func _handle_attempted_path_drag_start(hex: MapHex):
+	if not (hex in hex_options_for_path):
+		for h in path:
+			h.clear_base_highlight()
+			remaining_hex_options_for_path = hex_options_for_path
+		path = []
+
+	var last_hex = null
+
+	if path.size() > 0:
+		last_hex = path[path.size() - 1]
+
+	var is_valid_hex = hex in remaining_hex_options_for_path
+	var is_already_selected = hex in path
+	var adjacent_to_prev = (
+		(last_hex == null and hex.sector.cell.distance_to(path_origin.sector.cell) < 2)
+		or (last_hex != null and hex.sector.cell.distance_to(last_hex.sector.cell) < 2)
+	)
+
+	if (
+		is_valid_hex
+		and (not is_already_selected)
+		and adjacent_to_prev
+		and path.size() < max_path_length
+	):
+		hex.highlight_base(Color.goldenrod)
+		path.append(hex)
 
 
 func _handle_hex_hover_start(hex: MapHex):
-	if hex == focused_hex or (not hex_hover_enabled):
+	if hex == focused_hex:
 		return
-	hex.highlight_border(hex_highlight_color)
+	emit_signal("on_hex_hover_start", hex)
+
+	if hex_hover_fx_enabled:
+		hex.highlight_border(hex_highlight_color)
+
+	if hex_options_for_path.size() > 0:
+		_handle_attempted_path_drag_start(hex)
 
 
 func _handle_hex_hover_stop(hex: MapHex):
-	if hex == focused_hex or (not hex_hover_enabled):
+	if hex == focused_hex:
 		return
-	hex.clear_border_highlight()
+	emit_signal("on_hex_hover_stop", hex)
+
+	if hex_hover_fx_enabled:
+		hex.clear_border_highlight()
 
 
 func _handle_hex_click(hex: MapHex):
@@ -56,19 +99,38 @@ func _handle_hex_click(hex: MapHex):
 	hex.highlight_border(hex_focus_color)
 
 
-func toggle_path_selection(_max_path_length, _origin, allowed_hexes):
+func toggle_path_selection(p_max_path_length, origin, allowed_hexes):
+	path_origin = origin
+	max_path_length = p_max_path_length
+
 	for h in allowed_hexes:
 		hex_options_for_path = allowed_hexes
+		remaining_hex_options_for_path = hex_options_for_path
 		h.highlight_border(hex_highlight_color)
 
 
-func toggle_hex_hover(on: bool):
-	hex_hover_enabled = on
+func clear_path_selection():
+	for h in path:
+		h.clear_base_highlight()
+
+	path = []
+	remaining_hex_options_for_path = []
+	hex_options_for_path = []
+	path_origin = null
+	max_path_length = null
+
+
+func clear_hex_border_fx():
+	for coord in sectors.keys():
+		var hex = sectors[coord].map_hex
+		hex.clear_border_highlight()
+
+
+func toggle_hex_hover_fx(on: bool):
+	hex_hover_fx_enabled = on
 
 	if not on:
-		for coord in sectors.keys():
-			var hex = sectors[coord].map_hex
-			hex.clear_border_highlight()
+		clear_hex_border_fx()
 
 
 func toggle_hex_select(on: bool):

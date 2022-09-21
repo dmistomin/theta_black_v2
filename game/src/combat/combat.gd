@@ -48,19 +48,23 @@ func _on_request_change_state(new_state, data):
 	match new_state:
 		Enums.CombatState.PAUSED:
 			print("Pause")
-			$Map.toggle_hex_hover(false)
+			$Map.toggle_hex_hover_fx(false)
 			$Map.toggle_hex_select(false)
 		Enums.CombatState.PLAYER_TURN_UNFOCUSED:
 			print("Player turn - unfocused")
-			$Map.toggle_hex_hover(true)
+			$Map.toggle_hex_hover_fx(true)
 			$Map.toggle_hex_select(true)
+			$Map.clear_path_selection()
+			$Map.clear_hex_border_fx()
 			$HUD/BottomPanel/CardControls.toggle_display_card_actions_panel(false)
 		Enums.CombatState.PLAYER_TURN_CARD_SELECTED:
 			print("Player turn - card selected")
 			$HUD/BottomPanel/CardControls.toggle_display_card_actions_panel(true)
+			$Map.clear_path_selection()
+			$Map.clear_hex_border_fx()
 		Enums.CombatState.PLAYER_TURN_ACTION_SELECTED:
 			print("Player turn - action selected")
-			$Map.toggle_hex_hover(false)
+			$Map.toggle_hex_hover_fx(false)
 			$Map.toggle_hex_select(false)
 			$HUD/SectorDetails.hide()
 			$HUD/BottomPanel/CardControls.show_action_detail_for(data["action"])

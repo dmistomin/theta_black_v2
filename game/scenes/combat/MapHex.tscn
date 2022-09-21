@@ -20,6 +20,7 @@ script = ExtResource( 4 )
 scan_icon = ""
 control_icon = ""
 spawn_icon = ""
+base_color = Color( 0.137255, 0.141176, 0.176471, 1 )
 border_color = Color( 0.478431, 0.501961, 0.47451, 1 )
 highlight_color = Color( 0.827451, 0.85098, 0.819608, 1 )
 

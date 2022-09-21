@@ -9,6 +9,7 @@ export(String) var scan_icon
 export(String) var control_icon
 export(String) var spawn_icon
 
+export(Color) var base_color
 export(Color) var border_color
 export(Color) var highlight_color
 
@@ -41,6 +42,14 @@ func highlight_border(color: Color):
 func clear_border_highlight():
 	$HexBorder.modulate = border_color
 	$HexBorder.render_priority = 0
+
+
+func highlight_base(color: Color):
+	$HexBaseColor.modulate = color
+
+
+func clear_base_highlight():
+	$HexBaseColor.modulate = base_color
 
 
 func _handle_cursor_enter():
