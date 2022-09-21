@@ -23,4 +23,4 @@ func show_action_controls(map):
 
 	valid_move_targets.erase(ship.token.current_sector.map_hex)
 	print("valid_move_targets.size(): ", valid_move_targets.size())
-	map.enable_hex_selection_from_subset(valid_move_targets)
+	map.toggle_path_selection(move_value, ship.token.current_sector.map_hex, valid_move_targets)

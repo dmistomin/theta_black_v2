@@ -3,6 +3,7 @@ extends Spatial
 
 signal on_hex_focus(hex)
 signal on_hex_unfocus(hex)
+signal on_path_selected(path)
 
 export(Vector2) var hex_scale
 
@@ -21,9 +22,9 @@ var sectors = {}
 
 var focused_hex
 
-var hexes
-var selected_hexes = []
-var valid_selection_hexes = []
+var path = []
+var max_path_length
+var hex_options_for_path = []
 
 
 func _handle_hex_hover_start(hex: MapHex):
@@ -55,9 +56,9 @@ func _handle_hex_click(hex: MapHex):
 	hex.highlight_border(hex_focus_color)
 
 
-func enable_hex_selection_from_subset(list_of_valid_hexes: Array):
-	for h in list_of_valid_hexes:
-		valid_selection_hexes = list_of_valid_hexes
+func toggle_path_selection(_max_path_length, _origin, allowed_hexes):
+	for h in allowed_hexes:
+		hex_options_for_path = allowed_hexes
 		h.highlight_border(hex_highlight_color)
 
 
