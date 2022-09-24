@@ -57,11 +57,13 @@ func _on_request_change_state(new_state, data):
 			$Map.clear_path_selection()
 			$Map.clear_hex_border_fx()
 			$HUD/BottomPanel/CardControls.toggle_display_card_actions_panel(false)
+			$HUD/BottomPanel/CardControls.hide_action_detail()
 		Enums.CombatState.PLAYER_TURN_CARD_SELECTED:
 			print("Player turn - card selected")
 			$HUD/BottomPanel/CardControls.toggle_display_card_actions_panel(true)
 			$Map.clear_path_selection()
 			$Map.clear_hex_border_fx()
+			$HUD/BottomPanel/CardControls.hide_action_detail()
 		Enums.CombatState.PLAYER_TURN_ACTION_SELECTED:
 			print("Player turn - action selected")
 			$Map.toggle_hex_hover_fx(false)

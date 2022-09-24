@@ -18,6 +18,10 @@ var normalized_ship_icon
 var pulse_animation
 
 
+func move_to(_other_hex):
+	pass
+
+
 func toggle_pulse(on: bool):
 	if on:
 		if pulse_animation != null:

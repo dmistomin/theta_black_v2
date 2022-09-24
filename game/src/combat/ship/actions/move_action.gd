@@ -22,5 +22,12 @@ func show_action_controls(map):
 				valid_move_targets.append(sector.map_hex)
 
 	valid_move_targets.erase(ship.token.current_sector.map_hex)
-	print("valid_move_targets.size(): ", valid_move_targets.size())
 	map.toggle_path_selection(move_value, ship.token.current_sector.map_hex, valid_move_targets)
+
+
+func on_action_confirm(_data: Dictionary = {}):
+	print("Move.on_action_confirm()")
+
+
+func on_action_cancel(_data: Dictionary = {}):
+	print("Move.on_action_cancel()")

@@ -5,6 +5,9 @@ signal on_hex_focus(hex)
 signal on_hex_unfocus(hex)
 signal on_hex_hover_start(hex)
 signal on_hex_hover_stop(hex)
+
+signal on_add_to_path(added_hex, path)
+signal on_clear_path(path)
 signal on_path_selected(path)
 
 export(Vector2) var hex_scale
@@ -25,6 +28,7 @@ var sectors = {}
 
 var focused_hex
 
+var path_confirmed = false
 var path = []
 var path_origin
 var max_path_length
@@ -32,12 +36,20 @@ var hex_options_for_path = []
 var remaining_hex_options_for_path = []
 
 
+func _reset_path():
+	for h in path:
+		h.clear_base_highlight()
+		remaining_hex_options_for_path = hex_options_for_path
+	emit_signal("on_clear_path", path)
+	path = []
+
+
 func _handle_attempted_path_drag_start(hex: MapHex):
+	if path_confirmed:
+		return
+
 	if not (hex in hex_options_for_path):
-		for h in path:
-			h.clear_base_highlight()
-			remaining_hex_options_for_path = hex_options_for_path
-		path = []
+		_reset_path()
 
 	var last_hex = null
 
@@ -57,8 +69,13 @@ func _handle_attempted_path_drag_start(hex: MapHex):
 		and adjacent_to_prev
 		and path.size() < max_path_length
 	):
-		hex.highlight_base(Color.goldenrod)
+		hex.highlight_base(Color.darkgray)
+		emit_signal("on_add_to_path", hex, path)
 		path.append(hex)
+
+
+func _handle_path_confirm():
+	path_confirmed = true
 
 
 func _handle_hex_hover_start(hex: MapHex):
@@ -83,6 +100,16 @@ func _handle_hex_hover_stop(hex: MapHex):
 
 
 func _handle_hex_click(hex: MapHex):
+	var valid_path_selected = path.size() > 0 and (hex in hex_options_for_path) and (hex in path)
+	var path_origin_should_reset = path_confirmed and path_origin == hex
+
+	if path_origin_should_reset:
+		path_confirmed = false
+		_reset_path()
+
+	if valid_path_selected:
+		_handle_path_confirm()
+
 	if not hex_select_enabled:
 		return
 
@@ -112,6 +139,8 @@ func toggle_path_selection(p_max_path_length, origin, allowed_hexes):
 func clear_path_selection():
 	for h in path:
 		h.clear_base_highlight()
+
+	emit_signal("on_clear_path", path)
 
 	path = []
 	remaining_hex_options_for_path = []

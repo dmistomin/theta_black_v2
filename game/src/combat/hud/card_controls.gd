@@ -43,7 +43,36 @@ func show_action_detail_for(action):
 	$ShipActions.clear_and_hide()
 
 	if action is ShipAction:
-		$CardHeader/Label.text = "SELECT TARGETS FOR %s" % Enums.ShipActionType.keys()[action.type]
+		$CardHeader.visible = false
+		$ActionConfirm.visible = true
+
+	if action is ScoutAction:
+		$ActionConfirm/HeaderLabel.text = "Scout"
+		$ActionConfirm/DetailLabel.text = "Drag to set movement path, click on ending hex, and then hit the 'confirm' button."
+		$ActionConfirm/ButtonContainer/PrimaryButton.text = "Confirm"
+		$ActionConfirm/ButtonContainer/PrimaryButton.connect("pressed", action, "on_action_confirm")
+		$ActionConfirm/ButtonContainer/SecondaryButton.text = "Cancel"
+		$ActionConfirm/ButtonContainer/SecondaryButton.connect(
+			"pressed", action, "on_action_cancel"
+		)
+
+
+func hide_action_detail():
+	$CardHeader.visible = true
+	$ActionConfirm.visible = false
+
+	var primary_button = $ActionConfirm/ButtonContainer/PrimaryButton
+	var secondary_button = $ActionConfirm/ButtonContainer/SecondaryButton
+
+	for s in primary_button.get_signal_list():
+		var connections = primary_button.get_signal_connection_list(s.name)
+		for c in connections:
+			primary_button.disconnect(c.signal, c.target, c.method)
+
+	for s in secondary_button.get_signal_list():
+		var connections = secondary_button.get_signal_connection_list(s.name)
+		for c in connections:
+			secondary_button.disconnect(c.signal, c.target, c.method)
 
 
 func _toggle_hand(on: bool):
