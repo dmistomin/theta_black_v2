@@ -31,6 +31,7 @@ var _state_transitions = {
 
 
 func _on_request_change_state(new_state, data):
+	print("request_change_state(), new_state: ", new_state)
 	var prev_state = current_state
 
 	if (
@@ -69,22 +70,50 @@ func _on_request_change_state(new_state, data):
 			$Map.toggle_hex_hover_fx(false)
 			$Map.toggle_hex_select(false)
 			$HUD/SectorDetails.hide()
+			data["action"].show_action_controls()
 			$HUD/BottomPanel/CardControls.show_action_detail_for(data["action"])
-			data["action"].show_action_controls($Map)
 		Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING:
 			print("Player turn - action resolving")
 			$HUD/SectorDetails.hide()
+
+
+func _setup_actions(ship_actions: Array):
+	for a in ship_actions:
+		a.connect("request_change_state", self, "_on_request_change_state")
+
+		if a.type == Enums.ShipActionType.MOVE:
+			a.setup(
+				$Map,
+				$HUD/BottomPanel/CardControls/ActionConfirm/ButtonContainer/PrimaryButton,
+				$HUD/BottomPanel/CardControls/ActionConfirm/ButtonContainer/SecondaryButton
+			)
+			print("move action!")
+		elif a.type == Enums.ShipActionType.SCOUT:
+			a.setup(
+				$Map,
+				$HUD/BottomPanel/CardControls/ActionConfirm/ButtonContainer/PrimaryButton,
+				$HUD/BottomPanel/CardControls/ActionConfirm/ButtonContainer/SecondaryButton
+			)
+			print("scout action!")
+		else:
+			print(
+				"Attempted to setup unknown action type: '%s'" % Enums.ShipActionType.keys()[a.type]
+			)
 
 
 func _setup_game():
 	var ship_1 = $Map.spawn_new_token_at(
 		"s1", Enums.Actor.PLAYER, $Map.sectors[Vector2(0, 0)].map_hex
 	)
-	ship_1.set_squadron("A")
 	var ship_2 = $Map.spawn_new_token_at(
 		"s2", Enums.Actor.PLAYER, $Map.sectors[Vector2(0, 0)].map_hex
 	)
+
+	ship_1.set_squadron("A")
+	_setup_actions(ship_1.actions)
+
 	ship_2.set_squadron("B")
+	_setup_actions(ship_2.actions)
 
 	player_deck.add_several_cards(
 		[

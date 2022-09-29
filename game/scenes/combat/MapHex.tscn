@@ -150,7 +150,6 @@ render_priority = 1
 texture = ExtResource( 2 )
 
 [node name="CoordLabel" type="Label3D" parent="."]
-visible = false
 render_priority = 3
 text = "(x, y)"
 

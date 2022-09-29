@@ -8,7 +8,7 @@ signal on_hex_hover_stop(hex)
 
 signal on_add_to_path(added_hex, path)
 signal on_clear_path(path)
-signal on_path_selected(path)
+signal on_path_confirmed(path)
 
 export(Vector2) var hex_scale
 
@@ -76,6 +76,7 @@ func _handle_attempted_path_drag_start(hex: MapHex):
 
 func _handle_path_confirm():
 	path_confirmed = true
+	emit_signal("on_path_confirmed", path)
 
 
 func _handle_hex_hover_start(hex: MapHex):

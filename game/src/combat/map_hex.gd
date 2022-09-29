@@ -21,6 +21,7 @@ var ShipToken = preload("res://scenes/combat/ShipToken.tscn")
 
 
 func _arrange_tokens_in_a_circle():
+	print("_arrange_tokens_in_a_circle() for hex ", sector.coordinates)
 	var combined_tokens = player_tokens + enemy_tokens
 
 	var count = combined_tokens.size()

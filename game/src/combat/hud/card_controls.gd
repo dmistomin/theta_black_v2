@@ -8,6 +8,7 @@ export(bool) var display_card_locked
 
 var UICard = preload("res://scenes/ui/UICard.tscn")
 var cards_in_hand = []
+var current_action
 
 
 func toggle_display_card_actions_panel(on: bool):
@@ -40,6 +41,7 @@ func toggle_display_card_actions_panel(on: bool):
 
 
 func show_action_detail_for(action):
+	current_action = action
 	$ShipActions.clear_and_hide()
 
 	if action is ShipAction:
@@ -49,12 +51,18 @@ func show_action_detail_for(action):
 	if action is ScoutAction:
 		$ActionConfirm/HeaderLabel.text = "Scout"
 		$ActionConfirm/DetailLabel.text = "Drag to set movement path, click on ending hex, and then hit the 'confirm' button."
+
 		$ActionConfirm/ButtonContainer/PrimaryButton.text = "Confirm"
 		$ActionConfirm/ButtonContainer/PrimaryButton.connect("pressed", action, "on_action_confirm")
+
 		$ActionConfirm/ButtonContainer/SecondaryButton.text = "Cancel"
 		$ActionConfirm/ButtonContainer/SecondaryButton.connect(
 			"pressed", action, "on_action_cancel"
 		)
+
+		if action.map:
+			$ActionConfirm/ButtonContainer/PrimaryButton.disabled = action.map.path_confirmed
+			action.map.connect("on_path_confirmed", action, "on_map_hex_path_confirmed")
 
 
 func hide_action_detail():
@@ -64,15 +72,11 @@ func hide_action_detail():
 	var primary_button = $ActionConfirm/ButtonContainer/PrimaryButton
 	var secondary_button = $ActionConfirm/ButtonContainer/SecondaryButton
 
-	for s in primary_button.get_signal_list():
-		var connections = primary_button.get_signal_connection_list(s.name)
-		for c in connections:
-			primary_button.disconnect(c.signal, c.target, c.method)
+	for c in primary_button.get_incoming_connections():
+		primary_button.disconnect(c.signal_name, primary_button, c.method_name)
 
-	for s in secondary_button.get_signal_list():
-		var connections = secondary_button.get_signal_connection_list(s.name)
-		for c in connections:
-			secondary_button.disconnect(c.signal, c.target, c.method)
+	for c in secondary_button.get_incoming_connections():
+		secondary_button.disconnect(c.signal_name, secondary_button, c.method_name)
 
 
 func _toggle_hand(on: bool):

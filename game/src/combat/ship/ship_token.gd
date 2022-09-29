@@ -16,10 +16,32 @@ var ship_icon
 var normalized_ship_icon
 
 var pulse_animation
+var move_animation
 
 
-func move_to(_other_hex):
-	pass
+func move_along_path(hex_path: Array):
+	print("move_along_path(), hex_path.size(): ", hex_path.size())
+	var last_hex = hex_path[hex_path.size() - 1]
+	print("last_hex.sector.coordinates: ", last_hex.sector.coordinates)
+
+	if ship.owner == Enums.Actor.ENEMY:
+		current_sector.map_hex.enemy_tokens.erase(self)
+		last_hex.enemy_tokens.append(self)
+
+	if ship.owner == Enums.Actor.PLAYER:
+		current_sector.map_hex.player_tokens.erase(self)
+		last_hex.player_tokens.append(self)
+
+	move_animation = get_tree().create_tween()
+
+	for hex in hex_path:
+		move_animation.tween_property(self, "global_translation", hex.global_translation, 0.5)
+
+	move_animation.tween_callback(current_sector.map_hex.get_node("Ships"), "remove_child", [self])
+	move_animation.tween_callback(last_hex.get_node("Ships"), "add_child", [self])
+	move_animation.tween_callback(last_hex, "_arrange_tokens_in_a_circle")
+
+	current_sector = last_hex.sector
 
 
 func toggle_pulse(on: bool):
@@ -46,7 +68,7 @@ func toggle_pulse(on: bool):
 		$ShipIcon.modulate = Color.dodgerblue
 
 
-func display(p_ship: Ship):
+func display(p_ship):
 	ship = p_ship
 	ship.token = self
 
