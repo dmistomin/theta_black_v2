@@ -82,7 +82,9 @@ func spawn_ship(ship: Ship):
 	_arrange_tokens_in_a_circle()
 
 
-func display(sector: Sector):
+func display(p_sector: Sector):
+	sector = p_sector
+
 	if sector.player_scanned:
 		$Markers/PlayerScanMark.visible = true
 		$Markers/PlayerScanMark/Icon.text = "%s" % scan_icon

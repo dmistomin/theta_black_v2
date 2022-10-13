@@ -35,7 +35,9 @@ func show_action_controls():
 	valid_move_targets.erase(ship.token.current_sector.map_hex)
 	map.toggle_path_selection(move_value, ship.token.current_sector.map_hex, valid_move_targets)
 
+	confirm_button.text = "Confirm"
 	confirm_button.connect("pressed", self, "on_action_confirm")
+	cancel_button.text = "Cancel"
 	cancel_button.connect("pressed", self, "on_action_cancel")
 
 
@@ -51,4 +53,7 @@ func on_action_confirm(_data: Dictionary = {}):
 
 
 func on_action_cancel(_data: Dictionary = {}):
-	print("Move.on_action_cancel()")
+	hide_action_controls()
+	emit_signal(
+		"request_change_state", Enums.CombatState.PLAYER_TURN_ACTION_SELECTED, {"action": self}
+	)

@@ -52,31 +52,14 @@ func show_action_detail_for(action):
 		$ActionConfirm/HeaderLabel.text = "Scout"
 		$ActionConfirm/DetailLabel.text = "Drag to set movement path, click on ending hex, and then hit the 'confirm' button."
 
-		$ActionConfirm/ButtonContainer/PrimaryButton.text = "Confirm"
-		$ActionConfirm/ButtonContainer/PrimaryButton.connect("pressed", action, "on_action_confirm")
-
-		$ActionConfirm/ButtonContainer/SecondaryButton.text = "Cancel"
-		$ActionConfirm/ButtonContainer/SecondaryButton.connect(
-			"pressed", action, "on_action_cancel"
-		)
-
-		if action.map:
-			$ActionConfirm/ButtonContainer/PrimaryButton.disabled = action.map.path_confirmed
-			action.map.connect("on_path_confirmed", action, "on_map_hex_path_confirmed")
-
 
 func hide_action_detail():
 	$CardHeader.visible = true
 	$ActionConfirm.visible = false
 
-	var primary_button = $ActionConfirm/ButtonContainer/PrimaryButton
-	var secondary_button = $ActionConfirm/ButtonContainer/SecondaryButton
-
-	for c in primary_button.get_incoming_connections():
-		primary_button.disconnect(c.signal_name, primary_button, c.method_name)
-
-	for c in secondary_button.get_incoming_connections():
-		secondary_button.disconnect(c.signal_name, secondary_button, c.method_name)
+	if current_action:
+		current_action.hide_action_controls()
+		current_action = null
 
 
 func _toggle_hand(on: bool):
