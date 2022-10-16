@@ -8,20 +8,25 @@ func before_each():
 	add_child_autofree(current_map)
 
 
-func test_load_map():
-	current_map.load_map("m1")
+func test_small_map():
+	current_map.load_map("test_map_1")
 
-	assert_eq(current_map.sectors.keys().size(), 8)
+	assert_eq(current_map.sectors.keys().size(), 7)
 	assert_eq(
 		current_map.sectors.keys(),
 		[
 			Vector2(0, 0),
-			Vector2(0, 1),
 			Vector2(1, 0),
+			Vector2(0, 1),
 			Vector2(1, 1),
-			Vector2(2, 1),
-			Vector2(1, 2),
-			Vector2(2, 2),
-			Vector2(2, 0),
+			Vector2(-1, 0),
+			Vector2(0, -1),
+			Vector2(-1, -1),
 		]
 	)
+
+	var player_start_sector = current_map.get_sector(0, 0)
+
+	assert_true(player_start_sector.player_scanned)
+	assert_false(player_start_sector.enemy_scanned)
+	assert_eq(player_start_sector.controlled_by, Enums.Actor.PLAYER)

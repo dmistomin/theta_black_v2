@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Test Map"
-sectors = [ Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 2, 1 ), Vector2( 1, 2 ), Vector2( 2, 2 ), Vector2( 2, 0 ) ]
+name = "Test Map #1"
+sectors = [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 0, 1 ), Vector2( 1, 1 ), Vector2( -1, 0 ), Vector2( 0, -1 ), Vector2( -1, -1 ) ]
 player_scanned_sectors = [ Vector2( 0, 0 ) ]
-player_controlled_sectors = [  ]
+player_controlled_sectors = [ Vector2( 0, 0 ) ]
 player_spawns = [  ]
-enemy_scanned_sectors = [ Vector2( 2, 2 ) ]
+enemy_scanned_sectors = [  ]
 enemy_controlled_sectors = [  ]
 enemy_spawns = [  ]

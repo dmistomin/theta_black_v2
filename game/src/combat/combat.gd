@@ -76,6 +76,8 @@ func _on_request_change_state(new_state, data):
 			print("Player turn - action resolving")
 			$HUD/SectorDetails.hide()
 
+	current_state = new_state
+
 
 func _setup_actions(ship_actions: Array):
 	for a in ship_actions:
@@ -94,7 +96,6 @@ func _setup_actions(ship_actions: Array):
 				$HUD/BottomPanel/CardControls/ActionConfirm/ButtonContainer/PrimaryButton,
 				$HUD/BottomPanel/CardControls/ActionConfirm/ButtonContainer/SecondaryButton
 			)
-			print("scout action!")
 		else:
 			print(
 				"Attempted to setup unknown action type: '%s'" % Enums.ShipActionType.keys()[a.type]
@@ -130,8 +131,8 @@ func _setup_game():
 	_on_request_change_state(Enums.CombatState.PLAYER_TURN_UNFOCUSED, null)
 
 
-func _ready() -> void:
-	$Map.load_map("m1")
+func start(map_name: String):
+	$Map.load_map(map_name)
 
 	$Map.connect("on_hex_focus", $HUD, "display_hex_details")
 	$Map.connect("on_hex_unfocus", $HUD, "hide_hex_details")

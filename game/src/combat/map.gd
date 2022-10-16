@@ -172,6 +172,15 @@ func toggle_hex_select(on: bool):
 			focused_hex = null
 
 
+func get_sector(x: int, y: int):
+	var coord = Vector2(x, y)
+
+	if not (coord in sectors):
+		return null
+
+	return sectors[Vector2(x, y)]
+
+
 func load_map(map_name: String) -> void:
 	var map_data = load("res://data/maps/%s.tres" % map_name)
 
@@ -205,6 +214,32 @@ func load_map(map_name: String) -> void:
 		var coords = Vector2(scan_levels.x, scan_levels.y)
 		sectors[coords].enemy_scanned = true
 		sectors[coords].update_map()
+
+	for player_controlled in map_data.player_controlled_sectors:
+		var sector = get_sector(player_controlled.x, player_controlled.y)
+		if sector.controlled_by != null:
+			printerr(
+				(
+					"Attempted to overwrite a sector (%s, %s) to be player-controlled, but value already set to %s"
+					% [player_controlled.x, player_controlled.y, sector.controlled_by]
+				)
+			)
+			return
+		sector.controlled_by = Enums.Actor.PLAYER
+		sector.update_map()
+
+	for enemy_controlled in map_data.enemy_controlled_sectors:
+		var sector = get_sector(enemy_controlled.x, enemy_controlled.y)
+		if sector.controlled_by != null:
+			printerr(
+				(
+					"Attempted to overwrite a sector (%s, %s) to be enemy-controlled, but value already set to %s"
+					% [enemy_controlled.x, enemy_controlled.y, sector.controlled_by]
+				)
+			)
+			return
+		sector.controlled_by = Enums.Actor.ENEMY
+		sector.update_map()
 
 
 func spawn_new_token_at(ship_class: String, ship_owner, map_hex: MapHex):
