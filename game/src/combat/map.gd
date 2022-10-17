@@ -36,6 +36,31 @@ var hex_options_for_path = []
 var remaining_hex_options_for_path = []
 
 
+func _load_map(map_name: String) -> void:
+	var map_data = load("res://data/maps/%s.tres" % map_name)
+
+	for coords in map_data.sectors:
+		var hex_cell = HexCell.new(coords)
+		var new_hex = MapHex.instance()
+		new_hex.get_node("CoordLabel").text = ("(%s, %s)" % [coords.x, coords.y])
+		add_child(new_hex)
+
+		new_hex.connect("on_hex_cursor_enter", self, "_handle_hex_hover_start")
+		new_hex.connect("on_hex_cursor_exit", self, "_handle_hex_hover_stop")
+		new_hex.connect("on_hex_clicked", self, "_handle_hex_click")
+
+		var world_pos = hex_grid.get_hex_center3(hex_cell)
+		new_hex.global_translation = world_pos
+
+		var sector = Sector.new()
+
+		sector.coordinates = coords
+		sector.cell = hex_cell
+		sector.map_hex = new_hex
+		new_hex.sector = sector
+		sectors[coords] = sector
+
+
 func _reset_path():
 	for h in path:
 		h.clear_base_highlight()
@@ -181,33 +206,8 @@ func get_sector(x: int, y: int):
 	return sectors[Vector2(x, y)]
 
 
-func load_map(map_name: String) -> void:
-	var map_data = load("res://data/maps/%s.tres" % map_name)
-
-	for coords in map_data.sectors:
-		var hex_cell = HexCell.new(coords)
-		var new_hex = MapHex.instance()
-		new_hex.get_node("CoordLabel").text = ("(%s, %s)" % [coords.x, coords.y])
-		add_child(new_hex)
-
-		new_hex.connect("on_hex_cursor_enter", self, "_handle_hex_hover_start")
-		new_hex.connect("on_hex_cursor_exit", self, "_handle_hex_hover_stop")
-		new_hex.connect("on_hex_clicked", self, "_handle_hex_click")
-
-		var world_pos = hex_grid.get_hex_center3(hex_cell)
-		new_hex.global_translation = world_pos
-
-		var sector = Sector.new()
-
-		sector.coordinates = coords
-		sector.cell = hex_cell
-		sector.map_hex = new_hex
-		new_hex.sector = sector
-		sectors[coords] = sector
-
-
 func load_encounter(encounter) -> void:
-	load_map(encounter.map_id)
+	_load_map(encounter.map_id)
 
 	for ship in encounter.player_ships:
 		spawn_token_at(ship, sectors[ship.starting_position].map_hex)

@@ -142,8 +142,6 @@ func _setup_game():
 func start(encounter: Encounter):
 	current_encounter = encounter
 
-	#$Map.load_map(encounter.map_id)
-
 	$Map.connect("on_hex_focus", $HUD, "display_hex_details")
 	$Map.connect("on_hex_unfocus", $HUD, "hide_hex_details")
 	$Map.load_encounter(current_encounter)
