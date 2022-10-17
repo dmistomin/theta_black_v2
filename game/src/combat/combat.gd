@@ -1,6 +1,8 @@
 class_name Combat
 extends Node
 
+var current_encounter
+
 var player_deck = CardList.new()
 var player_hand = []
 var player_discard = CardList.new()
@@ -28,6 +30,29 @@ var _state_transitions = {
 		Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING
 	],
 }
+
+var _encounters = [
+	{
+		"map_id": "m1",
+		"player_ships":
+		[
+			{"id": "s1", "pos": Vector2(0, 0), "squadron": "A"},
+			{"id": "s2", "pos": Vector2(0, 0), "squadron": "B"}
+		],
+		"player_deck":
+		[
+			{"id": "s1", "start_idx": 0},
+			{"id": "s2", "start_idx": 1},
+			{"id": "v1"},
+			{"id": "v1"},
+			{"id": "o1"}
+		],
+		"player_spawns": [],
+		"enemy_ships": [],
+		"enemy_deck": [],
+		"enemy_spawns": []
+	}
+]
 
 
 func _on_request_change_state(new_state, data):
@@ -103,39 +128,25 @@ func _setup_actions(ship_actions: Array):
 
 
 func _setup_game():
-	var ship_1 = $Map.spawn_new_token_at(
-		"s1", Enums.Actor.PLAYER, $Map.sectors[Vector2(0, 0)].map_hex
-	)
-	var ship_2 = $Map.spawn_new_token_at(
-		"s2", Enums.Actor.PLAYER, $Map.sectors[Vector2(0, 0)].map_hex
-	)
+	for ship in current_encounter.player_ships:
+		#$Map.spawn_token_at(ship, $Map.sectors[ship.starting_position].map_hex)
+		_setup_actions(ship.actions)
 
-	ship_1.set_squadron("A")
-	_setup_actions(ship_1.actions)
-
-	ship_2.set_squadron("B")
-	_setup_actions(ship_2.actions)
-
-	player_deck.add_several_cards(
-		[
-			ShipCard.new(Enums.Actor.PLAYER, 6, ship_1),
-			ShipCard.new(Enums.Actor.PLAYER, 6, ship_2),
-			VoidCard.new(Enums.Actor.PLAYER),
-			VoidCard.new(Enums.Actor.PLAYER),
-			CommandCard.new(Enums.Actor.PLAYER, preload("res://data/cards/o1.tres"))
-		]
-	)
+	player_deck.add_several_cards(current_encounter.player_deck.as_array())
 	player_deck.shuffle()
 
 	player_hand = player_deck.draw(4)
 	_on_request_change_state(Enums.CombatState.PLAYER_TURN_UNFOCUSED, null)
 
 
-func start(map_name: String):
-	$Map.load_map(map_name)
+func start(encounter: Encounter):
+	current_encounter = encounter
+
+	#$Map.load_map(encounter.map_id)
 
 	$Map.connect("on_hex_focus", $HUD, "display_hex_details")
 	$Map.connect("on_hex_unfocus", $HUD, "hide_hex_details")
+	$Map.load_encounter(current_encounter)
 
 	_setup_game()
 

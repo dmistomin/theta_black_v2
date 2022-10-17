@@ -205,41 +205,37 @@ func load_map(map_name: String) -> void:
 		new_hex.sector = sector
 		sectors[coords] = sector
 
-	for scan_levels in map_data.player_scanned_sectors:
-		var coords = Vector2(scan_levels.x, scan_levels.y)
-		sectors[coords].player_scanned = true
-		sectors[coords].update_map()
 
-	for scan_levels in map_data.enemy_scanned_sectors:
-		var coords = Vector2(scan_levels.x, scan_levels.y)
-		sectors[coords].enemy_scanned = true
-		sectors[coords].update_map()
+func load_encounter(encounter) -> void:
+	load_map(encounter.map_id)
 
-	for player_controlled in map_data.player_controlled_sectors:
-		var sector = get_sector(player_controlled.x, player_controlled.y)
-		if sector.controlled_by != null:
-			printerr(
-				(
-					"Attempted to overwrite a sector (%s, %s) to be player-controlled, but value already set to %s"
-					% [player_controlled.x, player_controlled.y, sector.controlled_by]
-				)
-			)
-			return
+	for ship in encounter.player_ships:
+		spawn_token_at(ship, sectors[ship.starting_position].map_hex)
+
+	for spawn_point in encounter.player_spawns:
+		var sector = sectors[spawn_point["pos"]]
+
 		sector.controlled_by = Enums.Actor.PLAYER
+		sector.player_scanned = true
+		sector.enemy_scanned = false
+		sector.is_player_spawn = true
+		sector.spawn_for = spawn_point["squadron"]
 		sector.update_map()
 
-	for enemy_controlled in map_data.enemy_controlled_sectors:
-		var sector = get_sector(enemy_controlled.x, enemy_controlled.y)
-		if sector.controlled_by != null:
-			printerr(
-				(
-					"Attempted to overwrite a sector (%s, %s) to be enemy-controlled, but value already set to %s"
-					% [enemy_controlled.x, enemy_controlled.y, sector.controlled_by]
-				)
-			)
-			return
+	for spawn_point in encounter.enemy_spawns:
+		var sector = sectors[spawn_point["pos"]]
+
 		sector.controlled_by = Enums.Actor.ENEMY
+		sector.enemy_scanned = true
+		sector.player_scanned = false
+		sector.is_enemy_spawn = true
+		sector.spawn_for = spawn_point["squadron"]
 		sector.update_map()
+
+
+func spawn_token_at(ship, map_hex):
+	map_hex.spawn_ship(ship)
+	return ship
 
 
 func spawn_new_token_at(ship_class: String, ship_owner, map_hex: MapHex):

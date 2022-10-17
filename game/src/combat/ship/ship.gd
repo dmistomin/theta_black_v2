@@ -5,6 +5,8 @@ var ship_class: String
 var ship_name: String
 var ship_squadron: String
 
+var starting_position: Vector2
+
 var shields: int
 var weapon_aim: int
 var weapon_damage: int

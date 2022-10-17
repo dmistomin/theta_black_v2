@@ -7,6 +7,10 @@ var map_hex
 
 var controlled_by
 
+var is_player_spawn: bool
+var is_enemy_spawn: bool
+var spawn_for: String
+
 var player_scanned: bool
 var enemy_scanned: bool
 

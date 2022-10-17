@@ -11,7 +11,7 @@ func before_each():
 
 
 func test_combat_start():
-	current_combat.start("test_map_1")
+	current_combat.start(Encounter.new("test_1"))
 
 	assert_eq(current_combat.player_hand.size(), 4)
 	assert_eq(current_combat.player_deck.count(), 1)

@@ -30,6 +30,23 @@ transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0, 0 )
 [node name="Markers" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0, 0 )
 
+[node name="ControlMark" type="Spatial" parent="Markers"]
+transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, -0.991, -8.27671e-23 )
+visible = false
+
+[node name="Background" type="Sprite3D" parent="Markers/ControlMark"]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 8.35189e-23, 0, 1.67038e-23, 1, -2.4645e-10, -0.00563788, -2.4645e-10 )
+modulate = Color( 0.47451, 0.47451, 0.47451, 1 )
+render_priority = 2
+texture = ExtResource( 2 )
+
+[node name="Icon" type="Label3D" parent="Markers/ControlMark"]
+transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0, 0.01 )
+no_depth_test = true
+render_priority = 2
+text = ""
+font = SubResource( 1 )
+
 [node name="PlayerScanMark" type="Spatial" parent="Markers"]
 transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, -0.991, -0.5, 1.17133e-16 )
 visible = false
@@ -64,23 +81,6 @@ render_priority = 2
 text = ""
 font = SubResource( 1 )
 
-[node name="PlayerControlMark" type="Spatial" parent="Markers"]
-transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, -0.991, -8.27671e-23 )
-visible = false
-
-[node name="Background" type="Sprite3D" parent="Markers/PlayerControlMark"]
-transform = Transform( 0.2, 0, 0, 0, 0.2, 8.35189e-23, 0, 1.67038e-23, 1, -2.4645e-10, -0.00563788, -2.4645e-10 )
-modulate = Color( 0.113725, 0.282353, 0.431373, 1 )
-render_priority = 2
-texture = ExtResource( 2 )
-
-[node name="Icon" type="Label3D" parent="Markers/PlayerControlMark"]
-transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0, 0.01 )
-no_depth_test = true
-render_priority = 2
-text = ""
-font = SubResource( 1 )
-
 [node name="EnemyScanMark" type="Spatial" parent="Markers"]
 transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0.991, 0.5, -1.17133e-16 )
 visible = false
@@ -113,23 +113,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
 no_depth_test = true
 render_priority = 2
 text = ""
-font = SubResource( 1 )
-
-[node name="EnemyControlMark" type="Spatial" parent="Markers"]
-transform = Transform( 1, 0, 0, 0, 1, 8.35189e-23, 0, 8.35188e-23, 1, 0, 0.991, 8.27671e-23 )
-visible = false
-
-[node name="Background" type="Sprite3D" parent="Markers/EnemyControlMark"]
-transform = Transform( 0.2, 0, 0, 0, 0.2, -8.35188e-23, 0, 1.67038e-23, 1, 0, 0, 0 )
-modulate = Color( 0.498039, 0.192157, 0.160784, 1 )
-render_priority = 2
-texture = ExtResource( 2 )
-
-[node name="Icon" type="Label3D" parent="Markers/EnemyControlMark"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
-no_depth_test = true
-render_priority = 2
-text = ""
 font = SubResource( 1 )
 
 [node name="HexBorder" type="Sprite3D" parent="."]

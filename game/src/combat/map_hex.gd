@@ -92,3 +92,20 @@ func display(p_sector: Sector):
 	if sector.enemy_scanned:
 		$Markers/EnemyScanMark.visible = true
 		$Markers/EnemyScanMark/Icon.text = "%s" % scan_icon
+
+	if sector.is_player_spawn:
+		$Markers/PlayerSpawnMark.visible = true
+		$Markers/PlayerSpawnMark/Icon.text = " %s" % sector.spawn_for
+
+	if sector.is_enemy_spawn:
+		$Markers/EnemySpawnMark.visible = true
+		$Markers/EnemySpawnMark/Icon.text = " %s" % sector.spawn_for
+
+	if sector.controlled_by != null:
+		$Markers/ControlMark.visible = true
+
+		if sector.controlled_by == Enums.Actor.PLAYER:
+			$Markers/ControlMark/Background.modulate = Color("#1d486e")
+
+		if sector.controlled_by == Enums.Actor.ENEMY:
+			$Markers/ControlMark/Background.modulate = Color("#7f3129")

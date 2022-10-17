@@ -9,7 +9,7 @@ func before_each():
 
 
 func test_small_map():
-	current_map.load_map("test_map_1")
+	current_map.load_encounter(Encounter.new("test_1"))
 
 	assert_eq(current_map.sectors.keys().size(), 7)
 	assert_eq(
