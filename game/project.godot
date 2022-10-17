@@ -34,11 +34,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/cards/card_data.gd"
 }, {
-"base": "Control",
-"class": "CardHand",
-"language": "GDScript",
-"path": "res://src/combat/hud/card_hand.gd"
-}, {
 "base": "Reference",
 "class": "CardList",
 "language": "GDScript",
@@ -180,7 +175,6 @@ _global_script_class_icons={
 "CardAction": "",
 "CardControls": "",
 "CardData": "",
-"CardHand": "",
 "CardList": "",
 "Combat": "",
 "CommandCard": "",
