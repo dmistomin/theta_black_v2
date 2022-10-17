@@ -18,10 +18,10 @@ func test_small_map():
 			Vector2(0, 0),
 			Vector2(1, 0),
 			Vector2(0, 1),
-			Vector2(1, 1),
+			Vector2(1, -1),
 			Vector2(-1, 0),
 			Vector2(0, -1),
-			Vector2(-1, -1),
+			Vector2(-1, 1),
 		]
 	)
 
@@ -29,4 +29,5 @@ func test_small_map():
 
 	assert_true(player_start_sector.player_scanned)
 	assert_false(player_start_sector.enemy_scanned)
+
 	assert_eq(player_start_sector.controlled_by, Enums.Actor.PLAYER)

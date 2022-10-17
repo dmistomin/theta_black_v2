@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/combat/map_data.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Test Map #2"
+sectors = [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 0, 1 ), Vector2( 1, 1 ), Vector2( -1, 0 ), Vector2( 0, -1 ), Vector2( 1, -1 ), Vector2( -1, 1 ), Vector2( 2, 0 ), Vector2( 0, 2 ), Vector2( -1, -1 ), Vector2( 2, -2 ), Vector2( -2, 2 ), Vector2( -1, 2 ), Vector2( 2, -1 ), Vector2( -2, 0 ), Vector2( 0, -2 ), Vector2( -2, 1 ), Vector2( 1, -2 ) ]
+player_scanned_sectors = [  ]
+player_controlled_sectors = [  ]
+player_spawns = [  ]
+enemy_scanned_sectors = [  ]
+enemy_controlled_sectors = [  ]
+enemy_spawns = [  ]

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Test Map #1"
-sectors = [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 0, 1 ), Vector2( 1, 1 ), Vector2( -1, 0 ), Vector2( 0, -1 ), Vector2( -1, -1 ) ]
+sectors = [ Vector2( 0, 0 ), Vector2( 1, 0 ), Vector2( 0, 1 ), Vector2( 1, -1 ), Vector2( -1, 0 ), Vector2( 0, -1 ), Vector2( -1, 1 ) ]
 player_scanned_sectors = [ Vector2( 0, 0 ) ]
 player_controlled_sectors = [ Vector2( 0, 0 ) ]
 player_spawns = [  ]

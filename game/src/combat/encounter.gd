@@ -29,6 +29,23 @@ var _encounter_data = {
 		"enemy_deck": [],
 		"enemy_spawns": []
 	},
+	"test_2":
+	{
+		"map_id": "test_map_2",
+		"player_deck":
+		[
+			{"id": "s1", "pos": Vector2(0, 0), "squadron": "A"},
+			{"id": "s2", "pos": Vector2(0, 1), "squadron": "B"},
+			{"id": "v1"},
+			{"id": "v1"},
+			{"id": "o1"}
+		],
+		"player_spawns":
+		[{"pos": Vector2(0, 0), "squadron": "*"}, {"pos": Vector2(0, 1), "squadron": "B"}],
+		"enemy_ships": [],
+		"enemy_deck": [],
+		"enemy_spawns": []
+	},
 	"basic":
 	{
 		"map_id": "m1",

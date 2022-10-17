@@ -3,4 +3,4 @@ extends Node
 
 
 func _ready() -> void:
-	$Combat.start(Encounter.new("basic"))
+	$Combat.start(Encounter.new("test_2"))
