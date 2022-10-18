@@ -1,6 +1,8 @@
 class_name Combat
 extends Node
 
+export(int) var rng_seed
+
 var current_encounter
 
 var player_deck = CardList.new()
@@ -142,6 +144,8 @@ func _setup_game():
 
 
 func start(encounter: Encounter):
+	seed(rng_seed)
+
 	current_encounter = encounter
 
 	$Map.connect("on_hex_focus", $HUD, "display_hex_details")
