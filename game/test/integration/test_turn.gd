@@ -52,4 +52,6 @@ func test_first_turn():
 
 	assert_true(hud_active_card_bg.visible)
 	assert_true(hud_card_actions.visible)
+	assert_eq(hud_card_actions.get_child_count(), 2)
+
 	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_CARD_SELECTED)

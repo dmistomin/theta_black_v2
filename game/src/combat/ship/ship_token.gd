@@ -32,7 +32,7 @@ func move_along_path(hex_path: Array):
 		current_sector.map_hex.player_tokens.erase(self)
 		last_hex.player_tokens.append(self)
 
-	move_animation = get_tree().create_tween()
+	move_animation = create_tween()
 
 	for hex in hex_path:
 		move_animation.tween_property(self, "global_translation", hex.global_translation, 0.5)
@@ -50,7 +50,7 @@ func toggle_pulse(on: bool):
 			pulse_animation.kill()
 			pulse_animation = null
 
-		pulse_animation = get_tree().create_tween()
+		pulse_animation = create_tween()
 		pulse_animation.set_loops()
 		pulse_animation.tween_property($ShipIcon, "modulate", Color.white, 0.33)
 		pulse_animation.tween_property($ShipIcon, "modulate", Color.goldenrod, 0.33)
