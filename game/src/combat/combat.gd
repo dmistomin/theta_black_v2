@@ -29,6 +29,8 @@ var _state_transitions = {
 		Enums.CombatState.PLAYER_TURN_CARD_SELECTED,
 		Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING
 	],
+	Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING:
+	[Enums.CombatState.PAUSED, Enums.CombatState.PLAYER_TURN_UNFOCUSED]
 }
 
 var _encounters = [

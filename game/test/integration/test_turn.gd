@@ -10,7 +10,7 @@ func before_each():
 	add_child_autofree(current_combat)
 
 
-func test_first_turn():
+func test_scout_action():
 	current_combat.start(Encounter.new("test_2"))
 
 	assert_eq(current_combat.player_hand.size(), 4)
@@ -23,12 +23,12 @@ func test_first_turn():
 		"HUD/BottomPanel/CardControls/ActiveCardBackground"
 	)
 	var hud_card_actions = current_combat.get_node("HUD/BottomPanel/CardControls/CardActions")
+	var hud_action_confirm = current_combat.get_node("HUD/BottomPanel/CardControls/ActionConfirm")
 
 	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_UNFOCUSED)
 
 	assert_true(hud_card_hand.visible)
 	assert_eq(hud_card_hand.get_child_count(), 4)
-
 	assert_eq(hud_card_hand.get_child(0).card.card_name, "Fleet Commander")
 	assert_eq(hud_card_hand.get_child(1).card.card_name, "Signal Delay")
 	assert_eq(hud_card_hand.get_child(2).card.card_name, "Icarus")
@@ -37,6 +37,7 @@ func test_first_turn():
 	assert_false(hud_display_card.visible)
 	assert_false(hud_active_card_bg.visible)
 	assert_false(hud_card_actions.visible)
+	assert_false(hud_action_confirm.visible)
 
 	var ship_ui_card = hud_card_hand.get_child(2)
 
@@ -51,7 +52,25 @@ func test_first_turn():
 	hud_card_controls._toggle_display_card_on_click(click_release_event)
 
 	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_CARD_SELECTED)
-
 	assert_true(hud_active_card_bg.visible)
 	assert_true(hud_card_actions.visible)
+	assert_false(hud_action_confirm.visible)
 	assert_eq(hud_card_actions.get_child_count(), 2)
+
+	var scout_button = hud_card_actions.get_child(1)
+
+	assert_eq(scout_button.get_node("ActionButton/Label").text, "SCOUT")
+
+	hud_card_actions._handle_action_click(ship_ui_card.card.ship.actions[1])
+
+	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_ACTION_SELECTED)
+	assert_false(hud_card_actions.visible)
+	assert_true(hud_active_card_bg.visible)
+	assert_true(hud_action_confirm.visible)
+
+	var cancel_button = hud_action_confirm.get_node("ButtonContainer/SecondaryButton")
+
+	assert_eq(cancel_button.text, "Cancel")
+	cancel_button.emit_signal("pressed")
+
+	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_CARD_SELECTED)

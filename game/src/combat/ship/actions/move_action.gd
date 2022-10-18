@@ -49,11 +49,11 @@ func hide_action_controls():
 func on_action_confirm(_data: Dictionary = {}):
 	if map.path_confirmed:
 		ship.token.move_along_path(map.path)
-		emit_signal("request_change_state", Enums.CombatState.PLAYER_TURN_UNFOCUSED, null)
+		emit_signal("request_change_state", Enums.CombatState.PLAYER_TURN_ACTION_RESOLVING, null)
 
 
 func on_action_cancel(_data: Dictionary = {}):
 	hide_action_controls()
 	emit_signal(
-		"request_change_state", Enums.CombatState.PLAYER_TURN_ACTION_SELECTED, {"action": self}
+		"request_change_state", Enums.CombatState.PLAYER_TURN_CARD_SELECTED, {"action": self}
 	)

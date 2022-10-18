@@ -104,6 +104,9 @@ func _stop_showing_card_preview():
 
 
 func _toggle_display_card_on_click(event: InputEvent):
+	if current_action != null:
+		return
+
 	if event.is_action_released("click"):
 		if display_card_locked:
 			emit_signal("request_change_state", Enums.CombatState.PLAYER_TURN_UNFOCUSED, null)
