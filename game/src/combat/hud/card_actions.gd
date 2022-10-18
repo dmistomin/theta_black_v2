@@ -1,4 +1,4 @@
-class_name ShipActionsPanel
+class_name CardActions
 extends Control
 
 signal request_change_state(new_state, data)
@@ -35,10 +35,14 @@ func clear_and_hide():
 	current_action = null
 
 
-func display_actions_for(ship):
+func display_actions_for(card):
 	visible = true
 
-	for a in ship.actions:
+	if card.ship == null:
+		print("Returning early from action panel for card, not a ship card")
+		return
+
+	for a in card.ship.actions:
 		var panel = ShipActionPanel.instance()
 
 		actions.append(panel)

@@ -149,7 +149,7 @@ func start(encounter: Encounter):
 	_setup_game()
 
 	$HUD/BottomPanel/CardControls.connect("request_change_state", self, "_on_request_change_state")
-	$HUD/BottomPanel/CardControls/ShipActions.connect(
+	$HUD/BottomPanel/CardControls/CardActions.connect(
 		"request_change_state", self, "_on_request_change_state"
 	)
 	$HUD/BottomPanel/CardControls.draw_cards(player_hand)

@@ -19,11 +19,11 @@ func toggle_display_card_actions_panel(on: bool):
 		$ActiveCardBackground.visible = true
 		$DisplayCard.rect_global_position = $ActiveCardBackground/ActiveCardPosition.rect_global_position
 		$CardHeader/Label.text = "ACTIONS"
-		$ShipActions.visible = true
+		$CardActions.visible = true
 
 		if $DisplayCard.card and $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
 			$DisplayCard.card.ship.token.toggle_pulse(true)
-			$ShipActions.display_actions_for($DisplayCard.card.ship)
+			$CardActions.display_actions_for($DisplayCard.card)
 
 		return
 
@@ -34,7 +34,7 @@ func toggle_display_card_actions_panel(on: bool):
 	_toggle_hand(true)
 	_reset_cards_in_hand()
 	$CardHeader/Label.text = "CARDS"
-	$ShipActions.clear_and_hide()
+	$CardActions.clear_and_hide()
 
 	if $DisplayCard.card and $DisplayCard.card.super_type == Enums.CardSuperType.CREW:
 		$DisplayCard.card.ship.token.toggle_pulse(false)
@@ -42,7 +42,7 @@ func toggle_display_card_actions_panel(on: bool):
 
 func show_action_detail_for(action):
 	current_action = action
-	$ShipActions.clear_and_hide()
+	$CardActions.clear_and_hide()
 
 	if action is ShipAction:
 		$CardHeader.visible = false

@@ -22,7 +22,7 @@ func test_first_turn():
 	var hud_active_card_bg = current_combat.get_node(
 		"HUD/BottomPanel/CardControls/ActiveCardBackground"
 	)
-	var hud_card_actions = current_combat.get_node("HUD/BottomPanel/CardControls/ShipActions")
+	var hud_card_actions = current_combat.get_node("HUD/BottomPanel/CardControls/CardActions")
 
 	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_UNFOCUSED)
 
@@ -50,8 +50,8 @@ func test_first_turn():
 	var click_release_event = InputFactory.action_up("click")
 	hud_card_controls._toggle_display_card_on_click(click_release_event)
 
+	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_CARD_SELECTED)
+
 	assert_true(hud_active_card_bg.visible)
 	assert_true(hud_card_actions.visible)
 	assert_eq(hud_card_actions.get_child_count(), 2)
-
-	assert_eq(current_combat.current_state, Enums.CombatState.PLAYER_TURN_CARD_SELECTED)

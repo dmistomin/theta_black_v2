@@ -19,10 +19,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/cards/card.gd"
 }, {
-"base": "Reference",
-"class": "CardAction",
+"base": "Control",
+"class": "CardActions",
 "language": "GDScript",
-"path": "res://src/cards/card_action.gd"
+"path": "res://src/combat/hud/card_actions.gd"
 }, {
 "base": "Control",
 "class": "CardControls",
@@ -139,11 +139,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/combat/ship/actions/ship_action.gd"
 }, {
-"base": "Control",
-"class": "ShipActionsPanel",
-"language": "GDScript",
-"path": "res://src/combat/hud/ship_actions_panel.gd"
-}, {
 "base": "Card",
 "class": "ShipCard",
 "language": "GDScript",
@@ -172,7 +167,7 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "AttackAction": "",
 "Card": "",
-"CardAction": "",
+"CardActions": "",
 "CardControls": "",
 "CardData": "",
 "CardList": "",
@@ -196,7 +191,6 @@ _global_script_class_icons={
 "SectorDetails": "",
 "Ship": "",
 "ShipAction": "",
-"ShipActionsPanel": "",
 "ShipCard": "",
 "ShipData": "",
 "ShipToken": "",
