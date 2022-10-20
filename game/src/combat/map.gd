@@ -98,6 +98,30 @@ func _handle_attempted_path_drag_start(hex: MapHex):
 		emit_signal("on_add_to_path", hex, path)
 		path.append(hex)
 
+		var remaining_path_length = max_path_length - path.size()
+
+		remaining_hex_options_for_path = []
+
+		clear_hex_border_fx()
+
+		if remaining_path_length < 1:
+			return
+
+		var remaining_cells_in_range = hex.sector.cell.get_all_within(remaining_path_length)
+
+		for cell in remaining_cells_in_range:
+			var coords = cell.axial_coords
+
+			if coords in sectors:
+				var sector = sectors[coords]
+
+				if sector != null:
+					if sector.map_hex != path_origin:
+						remaining_hex_options_for_path.append(sector.map_hex)
+
+		for h in remaining_hex_options_for_path:
+			h.highlight_border(hex_highlight_color)
+
 
 func _handle_path_confirm():
 	path_confirmed = true
@@ -112,7 +136,7 @@ func _handle_hex_hover_start(hex: MapHex):
 	if hex_hover_fx_enabled:
 		hex.highlight_border(hex_highlight_color)
 
-	if hex_options_for_path.size() > 0:
+	if remaining_hex_options_for_path.size() > 0:
 		_handle_attempted_path_drag_start(hex)
 
 

@@ -123,6 +123,9 @@ func test_scout_action():
 	assert_false(hud_action_confirm.visible)
 	assert_eq(hud_card_actions.get_child_count(), 2)
 
+	var map = current_combat.get_node("Map")
+	assert_eq(map.hex_options_for_path.size(), 0)
+
 	var scout_button = hud_card_actions.get_child(1)
 
 	assert_eq(scout_button.get_node("ActionButton/Label").text, "SCOUT")
@@ -133,3 +136,13 @@ func test_scout_action():
 	assert_false(hud_card_actions.visible)
 	assert_true(hud_active_card_bg.visible)
 	assert_true(hud_action_confirm.visible)
+
+	assert_eq(map.hex_options_for_path.size(), 18)
+	assert_eq(map.remaining_hex_options_for_path.size(), 18)
+
+	var first_sector_to_move_to = map.get_sector(1, 0)
+
+	map._handle_hex_hover_start(first_sector_to_move_to.map_hex)
+
+	assert_eq(map.hex_options_for_path.size(), 18)
+	assert_eq(map.remaining_hex_options_for_path.size(), 6)
